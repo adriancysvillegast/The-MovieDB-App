@@ -69,7 +69,7 @@ class TabBarController: UITabBarController {
     func setupVCs() {
             viewControllers = [
                 createNavController(for: MovieViewController(), title: NSLocalizedString("Movies", comment: ""), image: UIImage(systemName: "tv")!),
-                createNavController(for: TVViewController(), title: "TV Show", image: UIImage(systemName: "play.tv")!)
+                
                 
             ]
         }
