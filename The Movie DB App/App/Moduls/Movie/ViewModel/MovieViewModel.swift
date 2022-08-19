@@ -31,16 +31,16 @@ class MovieViewModel {
     //MARK: - getMovies
 
     func getMovies() {
+        movieArray = []
         self.delegateSpinner?.showSpinner()
-        service?.getMovie(onComplete: { movie in
-            self.createMovie(movie: movie)
+        service?.get(onComplete: { data in
+            self.createMovie(movie: data)
             self.delegateSpinner?.hideSpinner()
             self.delegate?.updateView()
         }, onError: { error in
             self.delegateSpinner?.hideSpinner()
             self.delegateError?.showError(title: Constants.errorTitle, message: Constants.ErrorMessages.errorGetMovies)
         })
-        
     }
     
     func createMovie(movie: [MovieResponse]) {

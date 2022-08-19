@@ -37,32 +37,29 @@ class DetailViewModel {
             return
         }
         self.delegateSpinner?.showSpinner()
-        
-        service?.getDetail(with: idMovie, onComplete: { data in
+        service?.get(with: idMovie, onComplete: { data in
             let info = self.createDetailModel(data: data)
             self.movieSelect = info
             self.companieArray = data.productionCompanies
             self.delegateSpinner?.hideSpinner()
             self.delegate?.updateView(data: info)
         }, onError: { error in
-            print(error)
-            self.delegateSpinner?.hideSpinner()
+            self.delegateError?.showError(title: Constants.errorTitle, message: error)
         })
     }
     
     private func createDetailModel(data: MovieDetailResponse) -> DetailModel {
         var genres: [String] = []
-        
         let url = URL(string: "\(baseImage)\(data.posterPath ?? "")")
         
         for data in data.genres {
             genres.append(data.name)
         }
+        
         let nameCompanies = nameCompanies(data: data)
         let urlComapanie = imageCompanies(data: data)
         
         let newData = DetailModel(adult: data.adult, genres: genres, id: data.id, originalLanguage: data.originalLanguage, originalTitle: data.originalTitle, overview: data.overview, popularity: data.popularity, posterPath: url , releaseDate: data.releaseDate, voteAverage: data.voteAverage, voteCount: data.voteCount, companieImage: urlComapanie, companieName: nameCompanies)
-        
         return newData
     }
     
