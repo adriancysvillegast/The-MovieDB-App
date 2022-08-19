@@ -15,6 +15,7 @@ class MovieViewController: UIViewController {
         let viewModel = MovieViewModel()
         viewModel.delegate = self
         viewModel.delegateError = self
+        viewModel.delegateSpinner = self
         return viewModel
     }()
     
@@ -29,6 +30,15 @@ class MovieViewController: UIViewController {
         collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
+    }()
+    
+    private lazy var spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView()
+        spinner.style = .medium
+        spinner.color = .white
+        spinner.isHidden = true
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        return spinner
     }()
     
     private lazy var profileBotton: UIBarButtonItem = {
@@ -50,7 +60,7 @@ class MovieViewController: UIViewController {
     private func setupView() {
         view.backgroundColor = UIColor(named: Constants.ColorBackground.viewBackControllers)
         self.navigationItem.rightBarButtonItem = profileBotton
-        [aCollectionView].forEach {
+        [aCollectionView, spinner].forEach {
             view.addSubview($0)
         }
     }
@@ -60,7 +70,10 @@ class MovieViewController: UIViewController {
             aCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             aCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
             aCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            aCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            aCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor),
         ])
     }
     
@@ -131,5 +144,25 @@ extension MovieViewController: ShowErrorDelegate {
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
         present(alert, animated: true)
     }
+
+}
+
+//MARK: - SpinnerLoadDelegate
+
+extension MovieViewController: SpinnerLoadDelegate {
+    func showSpinner() {
+        DispatchQueue.main.async{
+            self.spinner.isHidden = false
+            self.spinner.startAnimating()
+        }
+    }
+    
+    func hideSpinner() {
+        DispatchQueue.main.async {
+            self.spinner.isHidden = true
+            self.spinner.stopAnimating()
+        }
+    }
+    
 
 }

@@ -31,10 +31,13 @@ class MovieViewModel {
     //MARK: - getMovies
 
     func getMovies() {
+        self.delegateSpinner?.showSpinner()
         service?.getMovie(onComplete: { movie in
             self.createMovie(movie: movie)
+            self.delegateSpinner?.hideSpinner()
             self.delegate?.updateView()
         }, onError: { error in
+            self.delegateSpinner?.hideSpinner()
             self.delegateError?.showError(title: Constants.errorTitle, message: Constants.ErrorMessages.errorGetMovies)
         })
         
