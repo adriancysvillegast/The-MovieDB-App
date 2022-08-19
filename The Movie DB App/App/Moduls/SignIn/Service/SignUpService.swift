@@ -1,5 +1,5 @@
 //
-//  LogInService.swift
+//  SignUpService.swift
 //  The Movie DB App
 //
 //  Created by Adriancys Jesus Villegas Toro on 19/8/22.
@@ -7,11 +7,11 @@
 
 import Foundation
 
-protocol LogInServiceFetching{
+protocol SignUpServiceFetching{
     func get(onComplete: @escaping (GuestSessionResponse) -> (), onError: @escaping (String) -> () )
 }
 
-class LogInService: LogInServiceFetching{
+class SignUpService: SignUpServiceFetching{
 
     //MARK: - properties
     private let baseURL = ProcessInfo.processInfo.environment["baseURL"]!
@@ -34,6 +34,7 @@ class LogInService: LogInServiceFetching{
             guard let e = error else { return }
             onError(e.localizedDescription)
         }
+
     }
     
 }

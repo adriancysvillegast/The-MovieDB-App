@@ -210,8 +210,8 @@ class LogInViewController: UIViewController {
     }
     
     @objc func goToSignUp(){
-//        let signupViewController = SignupViewController()
-//        self.navigationController?.pushViewController(signupViewController, animated: true)
+        let vc = SignUpViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -243,7 +243,6 @@ extension LogInViewController: LogInViewModelDelegate {
             nextVC.modalPresentationStyle = .fullScreen
             self.present(nextVC, animated: true)
         }
-        
     }
     
     func hideLabel(text: String) {
@@ -254,7 +253,6 @@ extension LogInViewController: LogInViewModelDelegate {
         self.labelAlert.isHidden = false
         self.labelAlert.text = text
     }
-    
     
 }
 

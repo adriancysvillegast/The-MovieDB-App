@@ -141,8 +141,8 @@ class ProfileViewController: UIViewController {
 //MARK: - ProfileViewModelDelegate
 
 extension ProfileViewController: ProfileViewModelDelegate {
-    func updateName(name: String) {
-        self.nameUser.text = name
+    func updateName(name: String?) {
+        self.nameUser.text = name ?? "" 
     }
 }
 

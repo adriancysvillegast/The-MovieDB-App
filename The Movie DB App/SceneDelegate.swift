@@ -10,16 +10,26 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    let userRepository = UserRepository()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        let home = LogInViewController()
-        let navigationController = UINavigationController(rootViewController: home)
-        window?.rootViewController = navigationController
-        window?.makeKeyAndVisible()
+        
+        if userRepository.validateCurrentUser(){
+            let home = TabBarController()
+            let navigationController = UINavigationController(rootViewController: home)
+            window?.rootViewController = navigationController
+            window?.makeKeyAndVisible()
+        }else{
+            let home = LogInViewController()
+            let navigationController = UINavigationController(rootViewController: home)
+            window?.rootViewController = navigationController
+            window?.makeKeyAndVisible()
+        }
+        
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

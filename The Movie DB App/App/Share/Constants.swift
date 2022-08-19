@@ -13,6 +13,7 @@ struct Constants {
     
     struct UserDefaultKey{
         static let token = "Token"
+        static let nameUser = "User"
     }
     
     struct APIManagerErrors {
@@ -43,6 +44,10 @@ struct Constants {
         static let emailError = "Please add an email addres, just like this example@gmail.com"
         static let passwordError = "Ey! type a password with more than six charater and uses numbers, lowercase and uppercase letters"
         
+    }
+    
+    struct LabelMessage {
+        static let label = "Ups, that password is not the same"
     }
 }
 

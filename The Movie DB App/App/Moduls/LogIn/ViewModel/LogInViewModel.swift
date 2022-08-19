@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 protocol LogInViewModelDelegate: AnyObject {
     func showLabel(text: String)
@@ -37,11 +38,10 @@ class LogInViewModel {
         self.delegateSpinner?.showSpinner()
         service?.get(onComplete: { token in
             let userDefault = UserDefaults.standard
-            print(token.guestSessionId)
             userDefault.set(token.guestSessionId, forKey: Constants.UserDefaultKey.token)
             //firebase
+            self.firebaseLogIn(email: email, password: password)
             self.delegateSpinner?.hideSpinner()
-            self.delegate?.goToHome()
         }, onError: { error in
             self.delegateSpinner?.hideSpinner()
             self.delegate?.showLabel(text: error)
@@ -92,4 +92,18 @@ class LogInViewModel {
         buttonActivate()
     }
     
+//MARK: - Firebase
+    
+    func firebaseLogIn(email: String, password: String) {
+        Auth.auth().signIn(withEmail: email, password: password) { result, error in
+            if let e = error{
+                self.delegateError?.showError(title: Constants.errorTitle, message: e.localizedDescription)
+            }else{
+                self.delegate?.goToHome()
+            }
+        }
+    }
+    
 }
+
+

@@ -8,7 +8,7 @@
 import Foundation
 
 protocol ProfileViewModelDelegate: AnyObject {
-    func updateName(name: String)
+    func updateName(name: String?)
 }
 
 class ProfileViewModel {
@@ -24,7 +24,7 @@ class ProfileViewModel {
     //MARK: - getUserName
     
     func getUserName() {
-        let name = "aqui usar user default"
+        let name = UserDefaults.standard.string(forKey: Constants.UserDefaultKey.nameUser) ?? ""
         self.delegate?.updateName(name: name)
     }
     
