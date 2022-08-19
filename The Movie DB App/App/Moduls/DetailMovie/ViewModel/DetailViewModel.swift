@@ -16,7 +16,7 @@ class DetailViewModel {
     //MARK: - Properties
     
     private let baseImage = ProcessInfo.processInfo.environment["baseImage"]!
-    private var service: DetailServiceFetching?
+    var service: DetailServiceFetching?
     weak var delegate: DetailViewModelDelegate?
     weak var delegateSpinner: SpinnerLoadDelegate?
     weak var delegateError: ShowErrorDelegate?

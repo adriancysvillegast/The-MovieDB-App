@@ -14,7 +14,7 @@ protocol MovieViewModelDelegate: AnyObject {
 class MovieViewModel {
     //MARK: - Properties
     
-    private var service: MovieServiceFetching?
+    var service: MovieServiceFetching?
     weak var delegate: MovieViewModelDelegate?
     weak var delegateSpinner: SpinnerLoadDelegate?
     weak var delegateError: ShowErrorDelegate?

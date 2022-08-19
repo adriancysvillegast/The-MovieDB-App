@@ -21,6 +21,7 @@ class DetailService: DetailServiceFetching {
     
     //MARK: - get Detail
     func get(with idMovie: Int, onComplete: @escaping (MovieDetailResponse) -> (), onError: @escaping (String) -> ()) {
+        print("\(baseURL)\(endPointSearchMovie)\(idMovie)?api_key=\(apiKey)")
         APIManager.shared.get(url: "\(baseURL)\(endPointSearchMovie)\(idMovie)?api_key=\(apiKey)") { data in
             guard let safeData = data else { return }
             do{

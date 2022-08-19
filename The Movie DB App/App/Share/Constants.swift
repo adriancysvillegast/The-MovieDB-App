@@ -11,6 +11,10 @@ struct Constants {
     
     static let errorTitle = "ERROR!"
     
+    struct UserDefaultKey{
+        static let token = "Token"
+    }
+    
     struct APIManagerErrors {
         static let error = "We couldn't get data"
     }
@@ -31,4 +35,14 @@ struct Constants {
         static let saveError = "We couldn't save data"
         static let deleteError = "We couldn't delete data"
     }
+    
+    struct ValidationMessages{
+        static let titleModal = " Error!"
+        static let nameShort = "Please add a name with more than three character"
+        static let nameWithNumbers = " Please don't used number on your name"
+        static let emailError = "Please add an email addres, just like this example@gmail.com"
+        static let passwordError = "Ey! type a password with more than six charater and uses numbers, lowercase and uppercase letters"
+        
+    }
 }
+
