@@ -202,7 +202,7 @@ class DetailViewController: UIViewController {
         setupConstraints()
         viewModel.getdetails(idMovie: idObject)
         
-        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+//        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
     }
     
     //MARK: - SetupView
