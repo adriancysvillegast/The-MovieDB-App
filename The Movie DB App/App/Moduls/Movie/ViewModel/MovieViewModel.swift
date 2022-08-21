@@ -55,7 +55,7 @@ class MovieViewModel {
     private func getDataImage(url: String?) -> Data?{
         var data: Data?
         let baseImage = ProcessInfo.processInfo.environment["baseImage"]!
-        if let safeURL = url{
+        if let safeURL = url {
             if let url = URL(string: "\(baseImage)\(safeURL)") {
                 do{
                     data = try Data(contentsOf: url)
