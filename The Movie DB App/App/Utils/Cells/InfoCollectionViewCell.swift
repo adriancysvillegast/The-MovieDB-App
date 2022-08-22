@@ -86,7 +86,7 @@ class InfoCollectionViewCell: UICollectionViewCell {
             
             descriptionLabel.topAnchor.constraint(equalTo: releaseDate.bottomAnchor, constant: 5),
             descriptionLabel.leadingAnchor.constraint(equalTo: aView.leadingAnchor, constant: 5),
-            descriptionLabel.trailingAnchor.constraint(equalTo: aView.trailingAnchor, constant: -5)
+            descriptionLabel.trailingAnchor.constraint(equalTo: aView.trailingAnchor, constant: -5),
         ])
     }
     
@@ -95,11 +95,19 @@ class InfoCollectionViewCell: UICollectionViewCell {
     }
     
     //MARK: - configureCell
-    func configureCell(model: MovieModel) {
+    func configureMovieCell(model: MovieModel) {
         guard let image = model.imageData else { return }
         self.imageView.image = UIImage(data: image)
         self.nameMovie.text = model.originalTitle
         self.descriptionLabel.text = model.overview
         self.releaseDate.text = model.releaseDate
+    }
+    
+    func configureTVCell(model: TVShowModel) {
+        guard let data = model.imageData else { return }
+        self.imageView.image = UIImage(data: data)
+        self.nameMovie.text = model.originalName
+        self.releaseDate.text = model.firstAirDate
+        self.descriptionLabel.text = model.overview
     }
 }

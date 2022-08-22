@@ -49,5 +49,9 @@ struct Constants {
     struct LabelMessage {
         static let label = "Ups, that password is not the same"
     }
+    
+    struct baseImage{
+        static let url = "https://image.tmdb.org/t/p/w500"
+    }
 }
 

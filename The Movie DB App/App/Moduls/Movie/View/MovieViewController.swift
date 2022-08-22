@@ -41,8 +41,6 @@ class MovieViewController: UIViewController {
         return spinner
     }()
     
-    
-    
     //MARK: - LifeCycle
     
     override func viewDidLoad() {
@@ -85,7 +83,7 @@ extension  MovieViewController: UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InfoCollectionViewCell().identifier, for: indexPath) as? InfoCollectionViewCell else { return UICollectionViewCell() }
-        cell.configureCell(model: viewModel.getMovieData(index: indexPath.row))
+        cell.configureMovieCell(model: viewModel.getMovieData(index: indexPath.row))
         return cell
     }
     

@@ -170,7 +170,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InfoCollectionViewCell().identifier, for: indexPath) as? InfoCollectionViewCell else { return UICollectionViewCell() }
         let movie = viewModel.getMovieData(index: indexPath.row)
-        cell.configureCell(model: movie)
+        cell.configureMovieCell(model: movie)
         return cell
     }
     
