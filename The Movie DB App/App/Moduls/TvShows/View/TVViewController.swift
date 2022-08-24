@@ -88,6 +88,12 @@ extension TVViewController: UICollectionViewDelegate, UICollectionViewDataSource
         return CGSize(width: view.frame.width/2.2, height: view.frame.height/2)
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let tvDetailController = TVDetailViewController()
+        tvDetailController.idObject = viewModel.getDataTV(index: indexPath.row).id
+        self.navigationController?.pushViewController(tvDetailController, animated: true)
+    }
+    
 }
 
 //MARK: - Section Heading
