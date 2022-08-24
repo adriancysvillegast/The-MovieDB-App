@@ -28,12 +28,12 @@ class ImageCollectionViewCell: UICollectionViewCell {
         [imageView].forEach {
             addSubview($0)
         }
-        
+
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
+            imageView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
     
