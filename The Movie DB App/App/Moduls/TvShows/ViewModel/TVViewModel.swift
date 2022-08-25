@@ -17,6 +17,7 @@ class TVViewModel {
     var service: TVServiceFetching?
     weak var delegate: TVViewModelDelegate?
     weak var delegateSpinner: SpinnerLoadDelegate?
+    weak var delegateError: ShowErrorDelegate?
     var showData: [TVShowModel] = []
     
     init(service: TVServiceFetching = TVService()) {
@@ -32,7 +33,7 @@ class TVViewModel {
             self.delegate?.updateCollection()
             self.delegateSpinner?.hideSpinner()
         }, onError: { error in
-            print(error)
+            self.delegateError?.showError(title: Constants.errorTitle, message: error)
             self.delegateSpinner?.hideSpinner()
         })
     }
@@ -63,7 +64,7 @@ class TVViewModel {
                 do{
                     data = try Data(contentsOf: safeURL)
                 }catch {
-                    print("error en getDataImage ")
+                    self.delegateError?.showError(title: Constants.errorTitle, message: Constants.ErrorMessages.errorImagesData)
                 }
             }
      return data
