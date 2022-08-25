@@ -43,8 +43,7 @@ class TabBarController: UITabBarController {
         }
         
         let navigateHome = UIAlertAction(title: "Log Out", style: .default) { _ in
-            self.userRepository.deleteCurrentUserFirebase()
-            self.userRepository.deleteToken()
+            self.userRepository.logOut()
             let vc = LogInViewController()
             self.navigationController?.pushViewController(vc, animated: true)
         }

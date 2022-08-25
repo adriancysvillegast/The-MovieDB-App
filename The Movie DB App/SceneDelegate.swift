@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
-        if userRepository.validateCurrentUser(){
+        if userRepository.isActiveSession(){
             let home = TabBarController()
             let navigationController = UINavigationController(rootViewController: home)
             window?.rootViewController = navigationController

@@ -399,6 +399,14 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		09B1B0EC28B6B791006DB7DA /* OnBoarding */ = {
+			isa = PBXGroup;
+			children = (
+				091D9BF428AFB9E7009B6726 /* UserRepository.swift */,
+			);
+			path = OnBoarding;
+			sourceTree = "<group>";
+		};
 		09BC2C2A28AD2795008842CE = {
 			isa = PBXGroup;
 			children = (
@@ -447,6 +455,7 @@
 		09BC2C4E28AD27C2008842CE /* Moduls */ = {
 			isa = PBXGroup;
 			children = (
+				09B1B0EC28B6B791006DB7DA /* OnBoarding */,
 				09D7729A28B410920002C952 /* DetailTvShow */,
 				0982FCCB28AEE445003BEB33 /* Profile */,
 				09A1281028ADDA56006F1303 /* TvShows */,
@@ -474,7 +483,6 @@
 				09EC7B8228AF13D0007907F6 /* Models */,
 				09BC2C6C28AD5A03008842CE /* Cells */,
 				09BC2C5328AD2834008842CE /* TabBarController.swift */,
-				091D9BF428AFB9E7009B6726 /* UserRepository.swift */,
 				09A1280A28ADB49E006F1303 /* SpinnerLoadDelegate.swift */,
 				09A1280C28ADB4DF006F1303 /* UIImageView+Extension.swift */,
 				09837FEC28AE62D700E4ECF0 /* ShowErrorDelegate.swift */,
