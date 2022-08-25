@@ -15,6 +15,7 @@ class TVViewController: UIViewController {
         let viewModel = TVViewModel()
         viewModel.delegate = self
         viewModel.delegateSpinner = self
+        viewModel.delegateError = self
         return viewModel
     }()
     
@@ -73,6 +74,8 @@ class TVViewController: UIViewController {
 
 }
 
+//MARK: - UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
+
 extension TVViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.getCount()
@@ -96,7 +99,7 @@ extension TVViewController: UICollectionViewDelegate, UICollectionViewDataSource
     
 }
 
-//MARK: - Section Heading
+//MARK: - TVViewModelDelegate
 
 extension TVViewController: TVViewModelDelegate {
     func updateCollection() {
@@ -123,5 +126,17 @@ extension TVViewController: SpinnerLoadDelegate {
             self.spinner.stopAnimating()
         }
     }
+    
+}
+
+//MARK: - Section Heading
+
+extension TVViewController: ShowErrorDelegate {
+    func showError(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
+        present(alert, animated: true)
+    }
+    
     
 }
