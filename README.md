@@ -47,4 +47,35 @@ Hola2896
 
 sin embargo puede crearse una cuenta usted mismo.
 
+Proceso de descarga del proyecto:
+
+1) descargar del proyecto
+a)
+
+![Screenshot 2022-08-30 at 3 04 05 PM](https://user-images.githubusercontent.com/81894293/187521608-e6de0e2a-da39-4dee-849a-c0ddc4ee2044.png)
+
+b) clonar proyecto
+
+![Screenshot 2022-08-30 at 3 07 03 PM](https://user-images.githubusercontent.com/81894293/187522050-e12e9916-158f-4d59-ba9c-26f8e9d954e6.png)
+
+c) pegar link y guardar donde prefieras
+
+![Screenshot 2022-08-30 at 3 08 38 PM](https://user-images.githubusercontent.com/81894293/187522748-91265dd0-e232-4f9e-83e3-9c734d08f4de.png)
+
+2) descargar Pods
+
+a)
+
+![Screenshot 2022-08-30 at 3 11 59 PM](https://user-images.githubusercontent.com/81894293/187523597-e73001e3-f7a6-4918-b1db-143e937f2dab.png)
+
+b) Escribir el comando de la imagen para descargar los pods 
+
+![Screenshot 2022-08-30 at 3 14 01 PM](https://user-images.githubusercontent.com/81894293/187523786-3ceed6fa-bac3-47fc-ac99-d220de143796.png)
+
+c) al descargarse todos los pods abrir el archivo .xcworkspace
+![The Movie DB App](https://user-images.githubusercontent.com/81894293/187523930-988bef2d-0992-43a9-a22e-75ef754f8178.png)
+
+d) Fin Ya puedes usar el proyecto.
+
+Nota: Debes tener instalado cocoapods en tu mac para poder hacer usos de los pods, la instrucciones de instalacion de cocoapods la encuentras en su pagina oficial.
 
