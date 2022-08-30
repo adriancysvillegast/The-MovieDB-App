@@ -50,6 +50,7 @@ sin embargo puede crearse una cuenta usted mismo.
 Proceso de descarga del proyecto:
 
 1) descargar del proyecto
+
 a)
 
 ![Screenshot 2022-08-30 at 3 04 05 PM](https://user-images.githubusercontent.com/81894293/187521608-e6de0e2a-da39-4dee-849a-c0ddc4ee2044.png)
@@ -68,7 +69,7 @@ a)
 
 ![Screenshot 2022-08-30 at 3 11 59 PM](https://user-images.githubusercontent.com/81894293/187523597-e73001e3-f7a6-4918-b1db-143e937f2dab.png)
 
-b) Escribir el comando de la imagen para descargar los pods 
+b) Escribir el comando de la imagen para descargar los pods -> pod install
 
 ![Screenshot 2022-08-30 at 3 14 01 PM](https://user-images.githubusercontent.com/81894293/187523786-3ceed6fa-bac3-47fc-ac99-d220de143796.png)
 
