@@ -57,6 +57,11 @@
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
+            key = "endPointGuestSession"
+            value = "/authentication/guest_session/new?"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
             key = "endPointSearchMovie"
             value = "/movie/"
             isEnabled = "YES">

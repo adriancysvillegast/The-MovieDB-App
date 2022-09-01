@@ -11,6 +11,13 @@ class MovieViewController: UIViewController {
     
     //MARK: - Properties
     
+    let userRepository = UserRepository()
+    
+    private lazy var profileBotton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: #selector(goToProfile))
+        return button
+    }()
+    
     private lazy var viewModel: MovieViewModel = {
         let viewModel = MovieViewModel()
         viewModel.delegate = self
@@ -55,6 +62,7 @@ class MovieViewController: UIViewController {
     //MARK: - SetupView
     
     private func setupView() {
+        self.navigationItem.rightBarButtonItem = profileBotton
         view.backgroundColor = UIColor(named: Constants.ColorBackground.viewBackControllers)
         [aCollectionView, spinner].forEach {
             view.addSubview($0)
@@ -73,7 +81,28 @@ class MovieViewController: UIViewController {
         ])
     }
     
-
+    //MARK: - add targets
+    
+    @objc func goToProfile() {
+        
+        let alert = UIAlertController(title: "What do you want to do?", message: "", preferredStyle: .actionSheet)
+        let navigateProfile = UIAlertAction(title: "View Profile", style: .default) { _ in
+            let vc = ProfileViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        
+        let navigateHome = UIAlertAction(title: "Log Out", style: .default) { _ in
+            self.userRepository.deleteCurrentUserFirebase()
+            self.userRepository.deleteToken()
+            let vc = LogInViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+        alert.addAction(navigateProfile)
+        alert.addAction(navigateHome)
+        alert.addAction(cancel)
+        present(alert, animated: true)
+    }
     
 }
 //MARK: - UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
