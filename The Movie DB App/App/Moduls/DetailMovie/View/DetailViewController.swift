@@ -293,6 +293,12 @@ class DetailViewController: UIViewController {
 //MARK: - DetailViewModelDelegate
 
 extension DetailViewController: DetailViewModelDelegate {
+    func updateCollection() {
+        DispatchQueue.main.async {
+            self.aCollectionView.reloadData()
+        }
+    }
+    
     func updateView(data: DetailModel) {
         DispatchQueue.main.async {
             guard let image = data.posterPath else { return }

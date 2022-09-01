@@ -9,6 +9,7 @@ import Foundation
 
 protocol DetailViewModelDelegate: AnyObject {
     func updateView(data: DetailModel)
+    func updateCollection()
 }
 
 class DetailViewModel {
@@ -41,9 +42,11 @@ class DetailViewModel {
             let info = self.createDetailModel(data: data)
             self.movieSelect = info
             self.companieArray = data.productionCompanies
-            self.delegateSpinner?.hideSpinner()
             self.delegate?.updateView(data: info)
+            self.delegate?.updateCollection()
+            self.delegateSpinner?.hideSpinner()
         }, onError: { error in
+            self.delegateSpinner?.hideSpinner()
             self.delegateError?.showError(title: Constants.errorTitle, message: error)
         })
     }
