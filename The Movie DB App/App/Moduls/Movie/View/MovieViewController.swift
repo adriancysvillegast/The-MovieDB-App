@@ -95,7 +95,8 @@ class MovieViewController: UIViewController {
             self.userRepository.deleteCurrentUserFirebase()
             self.userRepository.deleteToken()
             let vc = LogInViewController()
-            self.navigationController?.pushViewController(vc, animated: true)
+            vc.modalPresentationStyle = .overFullScreen
+            self.present(vc, animated: true)
         }
         let cancel = UIAlertAction(title: "Cancel", style: .cancel)
         alert.addAction(navigateProfile)
