@@ -286,9 +286,7 @@ class TVDetailViewController: UIViewController {
             aCollectionView.trailingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             
             aCollectionView.heightAnchor.constraint(equalToConstant: 250),
-            
-//            aCollectionView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -10),
-            
+              
             spinner.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             spinner.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
         ])
@@ -302,7 +300,7 @@ extension TVDetailViewController: TVDetailViewModelDelegate {
     func updateView(model: TVShowsDetailModel) {
         DispatchQueue.main.async {
             guard let url = model.imageURL else { return }
-            self.imageView.load(url: url)
+            self.imageView.loadImage(at: url)
             self.adultValue.text = String(model.adult)
             self.descriptionLabel.text = model.overview
             self.genreValue.text = model.genres.joined(separator: ",")
@@ -353,7 +351,6 @@ extension TVDetailViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize(width: view.frame.width/3.5, height: view.frame.height/1.2)
         return CGSize(width: view.frame.width/3.5, height: view.frame.height)
     }
     

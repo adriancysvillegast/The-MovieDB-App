@@ -34,7 +34,6 @@
 		09A1280728ADA5B2006F1303 /* DetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A1280628ADA5B2006F1303 /* DetailService.swift */; };
 		09A1280928ADAA4A006F1303 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A1280828ADAA4A006F1303 /* DetailViewModel.swift */; };
 		09A1280B28ADB49E006F1303 /* SpinnerLoadDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A1280A28ADB49E006F1303 /* SpinnerLoadDelegate.swift */; };
-		09A1280D28ADB4DF006F1303 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A1280C28ADB4DF006F1303 /* UIImageView+Extension.swift */; };
 		09A1280F28ADBC3C006F1303 /* DetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A1280E28ADBC3C006F1303 /* DetailModel.swift */; };
 		09A1281628ADDCEF006F1303 /* TVViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A1281528ADDCEF006F1303 /* TVViewController.swift */; };
 		09A4ADFD28AF3DFD004EC568 /* MovieTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A4ADFC28AF3DFD004EC568 /* MovieTest.swift */; };
@@ -111,7 +110,6 @@
 		09A1280628ADA5B2006F1303 /* DetailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailService.swift; sourceTree = "<group>"; };
 		09A1280828ADAA4A006F1303 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		09A1280A28ADB49E006F1303 /* SpinnerLoadDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerLoadDelegate.swift; sourceTree = "<group>"; };
-		09A1280C28ADB4DF006F1303 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		09A1280E28ADBC3C006F1303 /* DetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModel.swift; sourceTree = "<group>"; };
 		09A1281528ADDCEF006F1303 /* TVViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVViewController.swift; sourceTree = "<group>"; };
 		09A4ADFA28AF3DFD004EC568 /* Test.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Test.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -501,7 +499,6 @@
 				09BC2C6C28AD5A03008842CE /* Cells */,
 				09BC2C5328AD2834008842CE /* TabBarController.swift */,
 				09A1280A28ADB49E006F1303 /* SpinnerLoadDelegate.swift */,
-				09A1280C28ADB4DF006F1303 /* UIImageView+Extension.swift */,
 				09837FEC28AE62D700E4ECF0 /* ShowErrorDelegate.swift */,
 				091CECB828AF65C200658984 /* ValidationsData.swift */,
 			);
@@ -862,7 +859,6 @@
 				091CECB928AF65C200658984 /* ValidationsData.swift in Sources */,
 				09BC2C5428AD2834008842CE /* TabBarController.swift in Sources */,
 				09D772A828B4190F0002C952 /* TVDetailService.swift in Sources */,
-				09A1280D28ADB4DF006F1303 /* UIImageView+Extension.swift in Sources */,
 				09A1280B28ADB49E006F1303 /* SpinnerLoadDelegate.swift in Sources */,
 				09BC2C6128AD43CB008842CE /* MoviesResponse.swift in Sources */,
 				091D9BEF28AF9FC5009B6726 /* SignUpViewController.swift in Sources */,
