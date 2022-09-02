@@ -83,7 +83,8 @@ extension TVViewController: UICollectionViewDelegate, UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InfoCollectionViewCell().identifier, for: indexPath) as? InfoCollectionViewCell else { return UICollectionViewCell() }
-        cell.configureTVCell(model: viewModel.getDataTV(index: indexPath.row))
+        let tvShow = viewModel.getDataTV(index: indexPath.row)
+        cell.configureTVCell(model: tvShow)
         return cell
     }
     
