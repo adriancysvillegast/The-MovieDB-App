@@ -293,6 +293,12 @@ class DetailViewController: UIViewController {
 //MARK: - DetailViewModelDelegate
 
 extension DetailViewController: DetailViewModelDelegate {
+    func updateCollection() {
+        DispatchQueue.main.async {
+            self.aCollectionView.reloadData()
+        }
+    }
+    
     func updateView(data: DetailModel) {
         DispatchQueue.main.async {
             guard let image = data.posterPath else { return }
@@ -303,7 +309,7 @@ extension DetailViewController: DetailViewModelDelegate {
             self.lenguageValue.text = data.originalLanguage
             self.popularityValue.text = String(data.popularity)
             self.releaseValue.text = data.releaseDate
-            self.imageView.load(url: image)
+            self.imageView.loadImage(at: image)
         }
     }
 }
