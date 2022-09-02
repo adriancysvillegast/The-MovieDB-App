@@ -10,7 +10,7 @@ import UIKit
 class InfoCollectionViewCell: UICollectionViewCell {
     //MARK: - properties
     let identifier = "InfoCollectionViewCell"
-    
+    private let baseImage = ProcessInfo.processInfo.environment["baseImage"]!
     lazy var aView: UIView = {
        let view = UIView()
         view.backgroundColor = UIColor(named: Constants.ColorBackground.viewBackColorCell)
@@ -94,10 +94,21 @@ class InfoCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - configureCell
-    func configureMovieCell(model: MovieModel) {
-        guard let image = model.imageData else { return }
-        self.imageView.image = UIImage(data: image)
+    //MARK: - configureCells
+    
+    func configureMovieCell(model: MovieResponse) {
+        guard let imagePath = model.posterPath else { return }
+        guard let imageURL = URL(string:"\(baseImage)\(imagePath)") else { return }
+        self.imageView.loadImage(at: imageURL)
+        self.nameMovie.text = model.originalTitle
+        self.descriptionLabel.text = model.overview
+        self.releaseDate.text = model.releaseDate
+    }
+    
+    //Recive data from coreData
+    func configureMovieDB(model: MovieModel) {
+        guard let imageData = model.imageData else { return }
+        self.imageView.image = UIImage(data: imageData)
         self.nameMovie.text = model.originalTitle
         self.descriptionLabel.text = model.overview
         self.releaseDate.text = model.releaseDate
