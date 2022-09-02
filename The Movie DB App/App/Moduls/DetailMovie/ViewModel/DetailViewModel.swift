@@ -9,6 +9,7 @@ import Foundation
 
 protocol DetailViewModelDelegate: AnyObject {
     func updateView(data: DetailModel)
+    func updateCollection()
 }
 
 class DetailViewModel {
@@ -43,26 +44,27 @@ class DetailViewModel {
             self.companieArray = data.productionCompanies
             self.delegateSpinner?.hideSpinner()
             self.delegate?.updateView(data: info)
+            self.delegate?.updateCollection()
         }, onError: { error in
             self.delegateError?.showError(title: Constants.errorTitle, message: error)
         })
     }
-    
+
     private func createDetailModel(data: MovieDetailResponse) -> DetailModel {
         var genres: [String] = []
         let url = URL(string: "\(baseImage)\(data.posterPath ?? "")")
-        
+
         for data in data.genres {
             genres.append(data.name)
         }
-        
+
         let nameCompanies = nameCompanies(data: data)
         let urlComapanie = imageCompanies(data: data)
-        
+
         let newData = DetailModel(adult: data.adult, genres: genres, id: data.id, originalLanguage: data.originalLanguage, originalTitle: data.originalTitle, overview: data.overview, popularity: data.popularity, posterPath: url , releaseDate: data.releaseDate, voteAverage: data.voteAverage, voteCount: data.voteCount, companieImage: urlComapanie, companieName: nameCompanies)
         return newData
     }
-    
+
     func imageCompanies(data: MovieDetailResponse) -> [URL?] {
         var imageCompanie: [URL?] = []
         for data in data.productionCompanies {
@@ -73,7 +75,7 @@ class DetailViewModel {
         }
         return imageCompanie
     }
-    
+
     func nameCompanies(data: MovieDetailResponse) -> [String?] {
         var nameCompanie: [String?] = []
         for data in data.productionCompanies {
@@ -83,17 +85,16 @@ class DetailViewModel {
         }
         return nameCompanie
     }
-    
-    //MARK: - companies data
-    
+
+//    //MARK: - companies data
+
     func companiesCount() -> Int {
         companieArray.count
     }
-    
+
     func showCompaniesData(index: Int) -> CompaniesResponse {
         companieArray[index]
     }
-    
     
     //MARK: - add Favorite
     func saveMovie() {

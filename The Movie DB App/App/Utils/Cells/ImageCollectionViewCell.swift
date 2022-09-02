@@ -44,6 +44,6 @@ class ImageCollectionViewCell: UICollectionViewCell {
     func configureCell(model: CompaniesResponse) {
         guard let link = model.logoPath else { return }
         guard let url = URL(string: "\(baseImage)\(link)") else { return }
-        self.imageView.load(url: url)
+        self.imageView.loadImage(at: url)
     }
 }
