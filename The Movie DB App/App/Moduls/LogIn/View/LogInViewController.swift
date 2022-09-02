@@ -10,6 +10,7 @@ import UIKit
 class LogInViewController: UIViewController {
     
     //MARK: - properties
+
     lazy var contentSize = CGSize(width: view.frame.size.width, height: view.frame.size.height)
     
     lazy var scrollView: UIScrollView = {
@@ -130,7 +131,7 @@ class LogInViewController: UIViewController {
     }()
     
     //MARK: - lifeCycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -141,6 +142,7 @@ class LogInViewController: UIViewController {
     //MARK: - setupView
     
     private func setupView() {
+        self.navigationController?.tabBarController?.tabBar.isHidden = true
         view.backgroundColor = UIColor(named: Constants.ColorBackground.viewBackControllers)
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)
