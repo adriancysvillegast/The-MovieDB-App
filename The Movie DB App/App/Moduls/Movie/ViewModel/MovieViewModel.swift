@@ -34,7 +34,7 @@ class MovieViewModel {
         movieArray = []
         self.delegateSpinner?.showSpinner()
         service?.get(onComplete: { data in
-            self.createMovie(movie: data)
+            self.movieData = data
             self.delegateSpinner?.hideSpinner()
             self.delegate?.updateView()
         }, onError: { error in
@@ -43,38 +43,14 @@ class MovieViewModel {
         })
     }
     
-    func createMovie(movie: [MovieResponse]) {
-        for movie in movie {
-            let dataImage = getDataImage(url: movie.posterPath)
-            let newMovie = MovieModel(imageData: dataImage, adult: movie.adult, overview: movie.overview, id: movie.id, originalTitle: movie.originalTitle, releaseDate: movie.releaseDate)
-            movieArray.append(newMovie)
-        }
-    }
-    //MARK: - getDataImage
-    
-    private func getDataImage(url: String?) -> Data?{
-        var data: Data?
-        let baseImage = ProcessInfo.processInfo.environment["baseImage"]!
-        if let safeURL = url {
-            if let url = URL(string: "\(baseImage)\(safeURL)") {
-                do{
-                    data = try Data(contentsOf: url)
-                }catch{
-                    print(Constants.ErrorMessages.errorImagesData)
-                }
-            }
-        }
-        return data
-    }
-
     //MARK: - ShowData
 
     func getMovieCount() -> Int {
-        return movieArray.count
+        return movieData.count
     }
     
-    func getMovieData(index: Int) -> MovieModel {
-        return movieArray[index]
+    func getMovieData(index: Int) -> MovieResponse {
+        return movieData[index]
     }
     
 }
