@@ -54,6 +54,10 @@
 		09B631CE28C2E21300D516FA /* TVShowTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B631CD28C2E21300D516FA /* TVShowTest.swift */; };
 		09B631D028C2E2ED00D516FA /* MockTVShowServiceFail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B631CF28C2E2ED00D516FA /* MockTVShowServiceFail.swift */; };
 		09B631D228C2E31700D516FA /* MockTVShowServiceSuccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B631D128C2E31700D516FA /* MockTVShowServiceSuccess.swift */; };
+		09B631D428C2EA8400D516FA /* TVShowDetail.json in Resources */ = {isa = PBXBuildFile; fileRef = 09B631D328C2EA8400D516FA /* TVShowDetail.json */; };
+		09B631D928C2EC3600D516FA /* TVShowDetailTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B631D828C2EC3600D516FA /* TVShowDetailTest.swift */; };
+		09B631DB28C2ECCB00D516FA /* MockTVShowDetailServiceSuccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B631DA28C2ECCB00D516FA /* MockTVShowDetailServiceSuccess.swift */; };
+		09B631DD28C2ECDD00D516FA /* MockTVShowDetailServiceFail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B631DC28C2ECDD00D516FA /* MockTVShowDetailServiceFail.swift */; };
 		09BC2C3728AD2795008842CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BC2C3628AD2795008842CE /* AppDelegate.swift */; };
 		09BC2C3928AD2795008842CE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BC2C3828AD2795008842CE /* SceneDelegate.swift */; };
 		09BC2C3B28AD2795008842CE /* MovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BC2C3A28AD2795008842CE /* MovieViewController.swift */; };
@@ -133,6 +137,10 @@
 		09B631CD28C2E21300D516FA /* TVShowTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowTest.swift; sourceTree = "<group>"; };
 		09B631CF28C2E2ED00D516FA /* MockTVShowServiceFail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTVShowServiceFail.swift; sourceTree = "<group>"; };
 		09B631D128C2E31700D516FA /* MockTVShowServiceSuccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTVShowServiceSuccess.swift; sourceTree = "<group>"; };
+		09B631D328C2EA8400D516FA /* TVShowDetail.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TVShowDetail.json; sourceTree = "<group>"; };
+		09B631D828C2EC3600D516FA /* TVShowDetailTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowDetailTest.swift; sourceTree = "<group>"; };
+		09B631DA28C2ECCB00D516FA /* MockTVShowDetailServiceSuccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTVShowDetailServiceSuccess.swift; sourceTree = "<group>"; };
+		09B631DC28C2ECDD00D516FA /* MockTVShowDetailServiceFail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTVShowDetailServiceFail.swift; sourceTree = "<group>"; };
 		09BC2C3328AD2795008842CE /* The Movie DB App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The Movie DB App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09BC2C3628AD2795008842CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		09BC2C3828AD2795008842CE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -344,6 +352,7 @@
 		09A4ADFB28AF3DFD004EC568 /* Test */ = {
 			isa = PBXGroup;
 			children = (
+				09B631D528C2EAAA00D516FA /* TVShowDetail */,
 				09B631CC28C2E1CB00D516FA /* TVShow */,
 				09A4AE1128AF4A18004EC568 /* DetailMovie */,
 				09A4AE1028AF4A07004EC568 /* Movie */,
@@ -355,6 +364,7 @@
 			isa = PBXGroup;
 			children = (
 				09A4AE0428AF422D004EC568 /* movieMock.json */,
+				09B631D328C2EA8400D516FA /* TVShowDetail.json */,
 				09B631CA28C2E19700D516FA /* TVShowMock.json */,
 				09A4AE0728AF4345004EC568 /* detailMock.json */,
 			);
@@ -439,6 +449,16 @@
 				09B631CF28C2E2ED00D516FA /* MockTVShowServiceFail.swift */,
 			);
 			path = TVShow;
+			sourceTree = "<group>";
+		};
+		09B631D528C2EAAA00D516FA /* TVShowDetail */ = {
+			isa = PBXGroup;
+			children = (
+				09B631D828C2EC3600D516FA /* TVShowDetailTest.swift */,
+				09B631DA28C2ECCB00D516FA /* MockTVShowDetailServiceSuccess.swift */,
+				09B631DC28C2ECDD00D516FA /* MockTVShowDetailServiceFail.swift */,
+			);
+			path = TVShowDetail;
 			sourceTree = "<group>";
 		};
 		09BC2C2A28AD2795008842CE = {
@@ -779,6 +799,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09A4AE0828AF4345004EC568 /* detailMock.json in Resources */,
+				09B631D428C2EA8400D516FA /* TVShowDetail.json in Resources */,
 				09BC2C4628AD2799008842CE /* LaunchScreen.storyboard in Resources */,
 				091D9BE228AF74F6009B6726 /* GoogleService-Info.plist in Resources */,
 				09BC2C4328AD2799008842CE /* Assets.xcassets in Resources */,
@@ -837,10 +858,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				09B631D028C2E2ED00D516FA /* MockTVShowServiceFail.swift in Sources */,
+				09B631D928C2EC3600D516FA /* TVShowDetailTest.swift in Sources */,
 				09B631CE28C2E21300D516FA /* TVShowTest.swift in Sources */,
+				09B631DD28C2ECDD00D516FA /* MockTVShowDetailServiceFail.swift in Sources */,
 				09B631D228C2E31700D516FA /* MockTVShowServiceSuccess.swift in Sources */,
 				09A4AE0C28AF44F6004EC568 /* MockMovieServiceSuccess.swift in Sources */,
 				09A4AE0F28AF47C7004EC568 /* MockMovieServiceFail.swift in Sources */,
+				09B631DB28C2ECCB00D516FA /* MockTVShowDetailServiceSuccess.swift in Sources */,
 				09A4ADFD28AF3DFD004EC568 /* MovieTest.swift in Sources */,
 				09A4AE1528AF4AD9004EC568 /* DetailMovieServiceSuccess.swift in Sources */,
 				09A4AE1328AF4A5F004EC568 /* DetailMovieTest.swift in Sources */,

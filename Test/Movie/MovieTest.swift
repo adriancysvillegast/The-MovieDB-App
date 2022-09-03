@@ -22,7 +22,6 @@ class MovieTest: XCTestCase {
 
     func test_MovieViewModel_ShouldReturnError() {
         let mock = MockMovieServiceFail()
-        
         sut = MovieViewModel(service: mock)
         
         sut.service?.get(onComplete: { movie in
