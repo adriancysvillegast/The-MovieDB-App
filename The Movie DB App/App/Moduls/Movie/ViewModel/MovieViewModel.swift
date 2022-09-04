@@ -9,32 +9,34 @@ import Foundation
 
 protocol MovieViewModelDelegate: AnyObject {
     func updateView()
+    func updateLastMovie(url: URL)
 }
 
 class MovieViewModel {
     //MARK: - Properties
     
-    var service: MovieServiceFetching?
+    private let baseImage = ProcessInfo.processInfo.environment["baseImage"]!
+    var serviceTopRate: TopRateMovieServiceFetching?
+    var serviceLastMovie: LastMovieServiceFetching?
     weak var delegate: MovieViewModelDelegate?
     weak var delegateSpinner: SpinnerLoadDelegate?
     weak var delegateError: ShowErrorDelegate?
     
-    var movieData: [MovieResponse] = []
-    var movieArray: [MovieModel] = []
+    var moviesTopRateData: [TopRateMovieResponse] = []
     
     //MARK: - Init
     
-    init(service: MovieServiceFetching = MovieService()) {
-        self.service = service
+    init(serviceTopRate: TopRateMovieServiceFetching = TopRateMovieService(), serviceLastMovie: LastMovieServiceFetching = LastMovieService()) {
+        self.serviceTopRate = serviceTopRate
+        self.serviceLastMovie = serviceLastMovie
     }
     
-    //MARK: - getMovies
-
+    //MARK: - getTopRateMovies
+    
     func getMovies() {
-        movieArray = []
         self.delegateSpinner?.showSpinner()
-        service?.get(onComplete: { data in
-            self.movieData = data
+        serviceTopRate?.get(onComplete: { data in
+            self.moviesTopRateData = data
             self.delegateSpinner?.hideSpinner()
             self.delegate?.updateView()
         }, onError: { error in
@@ -43,15 +45,35 @@ class MovieViewModel {
         })
     }
     
-    //MARK: - ShowData
+    //MARK: - ShowTopRateMoviesData
 
     func getMovieCount() -> Int {
-        return movieData.count
+        return moviesTopRateData.count
     }
     
-    func getMovieData(index: Int) -> MovieResponse {
-        return movieData[index]
+    func getMovieData(index: Int) -> TopRateMovieResponse {
+        return moviesTopRateData[index]
     }
     
+    // MARK: - getLastMovieData
+    
+    func getLastMovie() {
+        self.delegateSpinner?.showSpinner()
+        serviceLastMovie?.get(onComplete: { lastMovie in
+            if let path = lastMovie.posterPath {
+                guard let url = URL(string: "\(self.baseImage)\(path)") else { return }
+                self.delegate?.updateLastMovie(url: url)
+            }else{
+                if let path = self.moviesTopRateData[0].posterPath{
+                    guard let url = URL(string: "\(self.baseImage)\(path)") else { return }
+                    self.delegate?.updateLastMovie(url: url)
+                }
+            }
+            self.delegateSpinner?.hideSpinner()
+        }, onError: { error in
+            self.delegateError?.showError(title: Constants.errorTitle, message: Constants.ErrorMessages.errorGetMovies)
+            self.delegateSpinner?.hideSpinner()
+        })
+    }
 }
 

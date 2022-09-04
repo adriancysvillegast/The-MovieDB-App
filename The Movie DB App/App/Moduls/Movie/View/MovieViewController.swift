@@ -20,12 +20,47 @@ class MovieViewController: UIViewController {
         return viewModel
     }()
     
+    lazy var contentSize = CGSize(width: view.frame.size.width, height: 1700)
+    
+    lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.backgroundColor = UIColor(named: Constants.ColorBackground.viewBackControllers)
+        scrollView.contentSize = contentSize
+        scrollView.frame = self.view.bounds
+        scrollView.autoresizingMask = .flexibleHeight
+        scrollView.showsHorizontalScrollIndicator = true
+        scrollView.bounces = true
+        return scrollView
+    }()
+    
+    private lazy var containerView: UIView = {
+        let aView = UIView()
+        aView.backgroundColor = UIColor(named: Constants.ColorBackground.viewBackControllers)
+        aView.frame.size = contentSize
+        return aView
+    }()
+    
+    private lazy var aImageView: UIImageView = {
+        let aImageView = UIImageView()
+        aImageView.contentMode = .scaleAspectFit
+        aImageView.image = UIImage(systemName: Constants.ImageDefault.image)
+        aImageView.translatesAutoresizingMaskIntoConstraints = false
+        return aImageView
+    }()
+    private lazy var topRateLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Top Rate"
+        label.font = UIFont.systemFont(ofSize: 20, weight: .heavy)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     private lazy var aCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
+        layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(InfoCollectionViewCell.self, forCellWithReuseIdentifier: InfoCollectionViewCell().identifier)
-        collectionView.showsVerticalScrollIndicator = true
+        collectionView.showsHorizontalScrollIndicator = true
         collectionView.backgroundColor = UIColor(named: Constants.ColorBackground.viewBackControllers)
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -53,6 +88,7 @@ class MovieViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         setupConstraints()
+        viewModel.getLastMovie()
         viewModel.getMovies()
     }
 
@@ -61,20 +97,31 @@ class MovieViewController: UIViewController {
     private func setupView() {
         self.navigationItem.rightBarButtonItem = profileBotton
         view.backgroundColor = UIColor(named: Constants.ColorBackground.viewBackControllers)
-        [aCollectionView, spinner].forEach {
-            view.addSubview($0)
+        view.addSubview(scrollView)
+        scrollView.addSubview(containerView)
+        [aCollectionView, topRateLabel, aImageView, spinner].forEach {
+            containerView.addSubview($0)
         }
     }
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            aCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            aCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            aCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            aCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            aImageView.topAnchor.constraint(equalTo: containerView.topAnchor),
+            aImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            aImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            aImageView.heightAnchor.constraint(equalToConstant: 600),
             
-            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            topRateLabel.topAnchor.constraint(equalTo: aImageView.bottomAnchor, constant: 10),
+            topRateLabel.leadingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide
+                .leadingAnchor, constant: 10),
+            
+            aCollectionView.topAnchor.constraint(equalTo: topRateLabel.bottomAnchor, constant: 5),
+            aCollectionView.leadingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            aCollectionView.trailingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            aCollectionView.heightAnchor.constraint(equalToConstant: 500),
+         
+            spinner.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
         ])
     }
     
@@ -128,6 +175,12 @@ extension  MovieViewController: UICollectionViewDataSource, UICollectionViewDele
 //MARK: - MovieViewModelDelegate
 
 extension MovieViewController: MovieViewModelDelegate {
+    func updateLastMovie(url: URL) {
+        DispatchQueue.main.async {
+            self.aImageView.loadImage(at: url)
+        }
+    }
+    
     func updateView() {
         DispatchQueue.main.async {
             self.aCollectionView.reloadData()

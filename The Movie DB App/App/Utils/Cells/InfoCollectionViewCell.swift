@@ -96,7 +96,7 @@ class InfoCollectionViewCell: UICollectionViewCell {
     
     //MARK: - configureCells
     
-    func configureMovieCell(model: MovieResponse) {
+    func configureMovieCell(model: TopRateMovieResponse) {
         guard let imagePath = model.posterPath else { return }
         guard let imageURL = URL(string:"\(baseImage)\(imagePath)") else { return }
         self.imageView.loadImage(at: imageURL)

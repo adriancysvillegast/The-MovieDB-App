@@ -1,5 +1,5 @@
 //
-//  MovieService.swift
+//  TopRateMovieService.swift
 //  The Movie DB App
 //
 //  Created by Adriancys Jesus Villegas Toro on 17/8/22.
@@ -7,11 +7,11 @@
 
 import Foundation
 
-protocol MovieServiceFetching {
-    func get(onComplete: @escaping ([MovieResponse]) -> (), onError: @escaping (String) -> ())
+protocol TopRateMovieServiceFetching {
+    func get(onComplete: @escaping ([TopRateMovieResponse]) -> (), onError: @escaping (String) -> ())
 }
 
-class MovieService: MovieServiceFetching {
+class TopRateMovieService: TopRateMovieServiceFetching {
     
     //MARK: - properties
     
@@ -21,13 +21,13 @@ class MovieService: MovieServiceFetching {
     
     //MARK: - get movies
     
-    func get(onComplete: @escaping ([MovieResponse]) -> (), onError: @escaping (String) -> ()) {
+    func get(onComplete: @escaping ([TopRateMovieResponse]) -> (), onError: @escaping (String) -> ()) {
         APIManager.shared.get(url: "\(baseURL)\(endPointTopMovie)api_key=\(apiKey)") { data in
             guard let data = data else { return }
             do{
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
-                let info = try decoder.decode(MoviesResponse.self, from: data)
+                let info = try decoder.decode(TopRateMoviesResponse.self, from: data)
                 onComplete(info.results)
             }catch{
                 onError(error.localizedDescription)

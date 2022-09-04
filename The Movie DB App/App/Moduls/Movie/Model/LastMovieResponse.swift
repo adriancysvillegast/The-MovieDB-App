@@ -1,13 +1,13 @@
 //
-//  MovieResponse.swift
+//  LastMovieResponse.swift
 //  The Movie DB App
 //
-//  Created by Adriancys Jesus Villegas Toro on 17/8/22.
+//  Created by Adriancys Jesus Villegas Toro on 4/9/22.
 //
 
 import Foundation
 
-struct MovieResponse: Codable {
+struct LastMovieResponse: Codable {
     let posterPath : String?
     let adult : Bool
     let overview : String
