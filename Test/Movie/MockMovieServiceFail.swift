@@ -8,8 +8,8 @@
 import Foundation
 @testable import The_Movie_DB_App
 
-class MockMovieServiceFail: MovieServiceFetching {
-    func get(onComplete: @escaping ([MovieResponse]) -> (), onError: @escaping (String) -> ()) {
+class MockMovieServiceFail: TopRateMovieServiceFetching {
+    func get(onComplete: @escaping ([TopRateMovieResponse]) -> (), onError: @escaping (String) -> ()) {
         onError(Constants.APIManagerErrors.error)
     }
     

@@ -16,6 +16,9 @@ struct Constants {
         static let nameUser = "User"
     }
     
+    struct ImageDefault {
+        static let image = "photo"
+    }
     struct APIManagerErrors {
         static let error = "We couldn't get data"
     }
