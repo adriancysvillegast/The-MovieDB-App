@@ -38,8 +38,7 @@ Bugs, errores o cosas que no tuve tiempo de resolver :
 3. Crear mejores validaciones para el log in y signUp 
 4. Aplicar testing a todos lo modelos de la app
 
-Nota: Quisiera saber sus opiniones sobre mi codigo, soy junior y se que tengo errores pero estoy full interesado en mejorar. 
-Por el siguiente link me pueden mandar sus comentarios: https://www.linkedin.com/in/adriancys-jesus-villegas-toro-283641160/
+Nota: Quisiera saber sus opiniones sobre mi codigo, el siguiente link me pueden mandar sus comentarios: https://www.linkedin.com/in/adriancys-jesus-villegas-toro-283641160/
 
 esta un user creado con los siguientes datos:
 User adriancysvillegast@gmail.com
