@@ -274,6 +274,5 @@ extension MovieViewController: SpinnerLoadDelegate {
             self.spinner.stopAnimating()
         }
     }
-    
 
 }

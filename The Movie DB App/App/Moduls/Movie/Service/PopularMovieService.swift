@@ -17,7 +17,6 @@ class PopularMovieService: PopularMovieServiceFeatching {
     
     func get(onComplete: @escaping ([PopularMovieResponse]) -> (),
              onError: @escaping (String) -> ()) {
-        print("\(baseURL)\(endPointPopularMovie)api_key=\(apiKey)")
         APIManager.shared.get(url: "\(baseURL)\(endPointPopularMovie)api_key=\(apiKey)") { data in
             guard let safeData = data else { return }
             do{
