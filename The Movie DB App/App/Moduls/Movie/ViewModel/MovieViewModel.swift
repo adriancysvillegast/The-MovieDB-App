@@ -8,7 +8,8 @@
 import Foundation
 
 protocol MovieViewModelDelegate: AnyObject {
-    func updateView()
+    func updateTopRateCollection()
+    func updatePopularCollection()
     func updateLastMovie(url: URL)
 }
 
@@ -18,27 +19,38 @@ class MovieViewModel {
     private let baseImage = ProcessInfo.processInfo.environment["baseImage"]!
     var serviceTopRate: TopRateMovieServiceFetching?
     var serviceLastMovie: LastMovieServiceFetching?
+    var servicePopularMovie: PopularMovieServiceFeatching?
     weak var delegate: MovieViewModelDelegate?
     weak var delegateSpinner: SpinnerLoadDelegate?
     weak var delegateError: ShowErrorDelegate?
     
-    var moviesTopRateData: [TopRateMovieResponse] = []
+    var serviceTopRateSuccess: Bool = false
+    var servicePopularSuccess: Bool = false
     
+    var moviesTopRateData: [TopRateMovieResponse] = []
+    var moviesPopularData: [PopularMovieResponse] = []
     //MARK: - Init
     
-    init(serviceTopRate: TopRateMovieServiceFetching = TopRateMovieService(), serviceLastMovie: LastMovieServiceFetching = LastMovieService()) {
+    init(serviceTopRate: TopRateMovieServiceFetching = TopRateMovieService(), serviceLastMovie: LastMovieServiceFetching = LastMovieService(), servicePopularMovie: PopularMovieServiceFeatching = PopularMovieService() ) {
         self.serviceTopRate = serviceTopRate
         self.serviceLastMovie = serviceLastMovie
+        self.servicePopularMovie = servicePopularMovie
+    }
+    
+    // MARK: - get all services
+    
+    func getAllService() {
+        
     }
     
     //MARK: - getTopRateMovies
     
-    func getMovies() {
+    func getTopRateMovies() {
         self.delegateSpinner?.showSpinner()
         serviceTopRate?.get(onComplete: { data in
             self.moviesTopRateData = data
             self.delegateSpinner?.hideSpinner()
-            self.delegate?.updateView()
+            self.delegate?.updateTopRateCollection()
         }, onError: { error in
             self.delegateSpinner?.hideSpinner()
             self.delegateError?.showError(title: Constants.errorTitle, message: Constants.ErrorMessages.errorGetMovies)
@@ -47,18 +59,17 @@ class MovieViewModel {
     
     //MARK: - ShowTopRateMoviesData
 
-    func getMovieCount() -> Int {
+    func getTopRateMovieCount() -> Int {
         return moviesTopRateData.count
     }
     
-    func getMovieData(index: Int) -> TopRateMovieResponse {
+    func getTopRateMovieData(index: Int) -> TopRateMovieResponse {
         return moviesTopRateData[index]
     }
     
     // MARK: - getLastMovieData
     
     func getLastMovie() {
-        self.delegateSpinner?.showSpinner()
         serviceLastMovie?.get(onComplete: { lastMovie in
             if let path = lastMovie.posterPath {
                 guard let url = URL(string: "\(self.baseImage)\(path)") else { return }
@@ -75,5 +86,28 @@ class MovieViewModel {
             self.delegateSpinner?.hideSpinner()
         })
     }
+    
+    
+    // MARK: - Get Popular Movies
+    
+    func getPopularMovie() {
+        servicePopularMovie?.get(onComplete: { infoMovies in
+            self.moviesPopularData = infoMovies
+            self.delegate?.updatePopularCollection()
+        }, onError: { error in
+            print(error)
+        })
+    }
+    
+    // MARK: - ShowPopularMovieData
+    
+    func popularMoviesCount() -> Int {
+        return moviesPopularData.count
+    }
+
+    func getPopularMovieData(index: Int) -> PopularMovieResponse {
+        return moviesPopularData[index]
+    }
+    
 }
 

@@ -47,6 +47,7 @@ class MovieViewController: UIViewController {
         aImageView.translatesAutoresizingMaskIntoConstraints = false
         return aImageView
     }()
+    
     private lazy var topRateLabel: UILabel = {
         let label = UILabel()
         label.text = "Top Rate"
@@ -55,7 +56,28 @@ class MovieViewController: UIViewController {
         return label
     }()
     
-    private lazy var aCollectionView: UICollectionView = {
+    private lazy var aCollectionViewTR: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(InfoCollectionViewCell.self, forCellWithReuseIdentifier: InfoCollectionViewCell().identifier)
+        collectionView.showsHorizontalScrollIndicator = true
+        collectionView.backgroundColor = UIColor(named: Constants.ColorBackground.viewBackControllers)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
+    
+    private lazy var popularLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Popular Movies"
+        label.font = UIFont.systemFont(ofSize: 20, weight: .heavy)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var aCollectionViewPM: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -88,8 +110,9 @@ class MovieViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         setupConstraints()
+        viewModel.getTopRateMovies()
         viewModel.getLastMovie()
-        viewModel.getMovies()
+        viewModel.getPopularMovie()
     }
 
     //MARK: - SetupView
@@ -99,7 +122,7 @@ class MovieViewController: UIViewController {
         view.backgroundColor = UIColor(named: Constants.ColorBackground.viewBackControllers)
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)
-        [aCollectionView, topRateLabel, aImageView, spinner].forEach {
+        [aImageView, topRateLabel, aCollectionViewTR, popularLabel, aCollectionViewPM, spinner].forEach {
             containerView.addSubview($0)
         }
     }
@@ -111,15 +134,24 @@ class MovieViewController: UIViewController {
             aImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             aImageView.heightAnchor.constraint(equalToConstant: 600),
             
-            topRateLabel.topAnchor.constraint(equalTo: aImageView.bottomAnchor, constant: 10),
+            topRateLabel.topAnchor.constraint(equalTo: aImageView.bottomAnchor, constant: 5),
             topRateLabel.leadingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide
                 .leadingAnchor, constant: 10),
             
-            aCollectionView.topAnchor.constraint(equalTo: topRateLabel.bottomAnchor, constant: 5),
-            aCollectionView.leadingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            aCollectionView.trailingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            aCollectionView.heightAnchor.constraint(equalToConstant: 500),
+            aCollectionViewTR.topAnchor.constraint(equalTo: topRateLabel.bottomAnchor),
+            aCollectionViewTR.leadingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            aCollectionViewTR.trailingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            aCollectionViewTR.heightAnchor.constraint(equalToConstant: 500),
          
+            popularLabel.topAnchor.constraint(equalTo: aCollectionViewTR.bottomAnchor, constant: 5),
+            popularLabel.leadingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            popularLabel.trailingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            
+            aCollectionViewPM.topAnchor.constraint(equalTo: popularLabel.bottomAnchor),
+            aCollectionViewPM.leadingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            aCollectionViewPM.trailingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            aCollectionViewPM.heightAnchor.constraint(equalToConstant: 500),
+            
             spinner.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             spinner.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
         ])
@@ -152,12 +184,22 @@ class MovieViewController: UIViewController {
 
 extension  MovieViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.getMovieCount()
+        
+        if collectionView == aCollectionViewTR {
+            return viewModel.getTopRateMovieCount()
+        }
+        
+        return viewModel.popularMoviesCount()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InfoCollectionViewCell().identifier, for: indexPath) as? InfoCollectionViewCell else { return UICollectionViewCell() }
-        cell.configureMovieCell(model: viewModel.getMovieData(index: indexPath.row))
+        if collectionView == aCollectionViewTR {
+            cell.configureTopRateMovieCell(model: viewModel.getTopRateMovieData(index: indexPath.row))
+        } else {
+            cell.configurePopularMovieCell(model: viewModel.getPopularMovieData(index: indexPath.row))
+        }
         return cell
     }
     
@@ -166,24 +208,37 @@ extension  MovieViewController: UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailVC = DetailViewController()
-        detailVC.idObject = viewModel.getMovieData(index: indexPath.row).id
-        self.navigationController?.pushViewController(detailVC, animated: true)
+        if collectionView == aCollectionViewTR {
+            let detailVC = DetailViewController()
+            detailVC.idObject = viewModel.getTopRateMovieData(index: indexPath.row).id
+            self.navigationController?.pushViewController(detailVC, animated: true)
+        }else {
+            let detailVC = DetailViewController()
+            detailVC.idObject = viewModel.getPopularMovieData(index: indexPath.row).id
+            self.navigationController?.pushViewController(detailVC, animated: true)
+        }
+        
     }
     
 }
 //MARK: - MovieViewModelDelegate
 
 extension MovieViewController: MovieViewModelDelegate {
+    func updatePopularCollection() {
+        DispatchQueue.main.async {
+            self.aCollectionViewPM.reloadData()
+        }
+    }
+    
     func updateLastMovie(url: URL) {
         DispatchQueue.main.async {
             self.aImageView.loadImage(at: url)
         }
     }
     
-    func updateView() {
+    func updateTopRateCollection() {
         DispatchQueue.main.async {
-            self.aCollectionView.reloadData()
+            self.aCollectionViewTR.reloadData()
         }
     }
 }
@@ -194,7 +249,7 @@ extension MovieViewController: ShowErrorDelegate {
     func showError(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let acction = UIAlertAction(title: "Try agrain!", style: .default) { _ in
-            self.viewModel.getMovies()
+            self.viewModel.getTopRateMovies()
         }
         alert.addAction(acction)
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
