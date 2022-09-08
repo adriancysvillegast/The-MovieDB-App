@@ -11,6 +11,26 @@ class TVViewController: UIViewController {
     
     //MARK: - Properties
     
+    lazy var contentSize = CGSize(width: view.frame.size.width, height: 1700)
+    
+    lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.backgroundColor = UIColor(named: Constants.ColorBackground.viewBackControllers)
+        scrollView.contentSize = contentSize
+        scrollView.frame = self.view.bounds
+        scrollView.autoresizingMask = .flexibleHeight
+        scrollView.showsHorizontalScrollIndicator = true
+        scrollView.bounces = true
+        return scrollView
+    }()
+    
+    private lazy var containerView: UIView = {
+        let aView = UIView()
+        aView.backgroundColor = UIColor(named: Constants.ColorBackground.viewBackControllers)
+        aView.frame.size = contentSize
+        return aView
+    }()
+    
     private lazy var viewModel: TVViewModel = {
         let viewModel = TVViewModel()
         viewModel.delegate = self
@@ -19,12 +39,49 @@ class TVViewController: UIViewController {
         return viewModel
     }()
     
-    private lazy var aCollectionView: UICollectionView = {
+    private lazy var aImageView: UIImageView = {
+        let aImageView = UIImageView()
+        aImageView.contentMode = .scaleAspectFit
+        aImageView.image = UIImage(systemName: Constants.ImageDefault.image)
+        aImageView.translatesAutoresizingMaskIntoConstraints = false
+        return aImageView
+    }()
+    
+    private lazy var popularLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Popular TV Shows"
+        label.font = UIFont.systemFont(ofSize: 20, weight: .heavy)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var aCollectionViewPopular: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
+        layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(InfoCollectionViewCell.self, forCellWithReuseIdentifier: InfoCollectionViewCell().identifier)
-        collectionView.showsVerticalScrollIndicator = true
+        collectionView.showsHorizontalScrollIndicator = true
+        collectionView.backgroundColor = UIColor(named: Constants.ColorBackground.viewBackControllers)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
+    
+    private lazy var topRateLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Top Rate TV Shows"
+        label.font = UIFont.systemFont(ofSize: 20, weight: .heavy)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var aCollectionViewTopRate: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(InfoCollectionViewCell.self, forCellWithReuseIdentifier: InfoCollectionViewCell().identifier)
+        collectionView.showsHorizontalScrollIndicator = true
         collectionView.backgroundColor = UIColor(named: Constants.ColorBackground.viewBackControllers)
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -47,25 +104,47 @@ class TVViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         setupConstraints()
-        viewModel.getTVData()
+        viewModel.getPopularTVShows()
+        viewModel.getTopRateTVShows()
+        viewModel.getLastTVShow()
     }
     
     //MARK: - setupView
     
     private func setupView() {
         view.backgroundColor = UIColor(named: Constants.ColorBackground.viewBackControllers)
-        
-        [aCollectionView, spinner].forEach {
-            view.addSubview($0)
+        view.addSubview(scrollView)
+        scrollView.addSubview(containerView)
+        [aImageView, popularLabel, aCollectionViewPopular, topRateLabel, aCollectionViewTopRate, spinner].forEach {
+            containerView.addSubview($0)
         }
     }
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            aCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            aCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            aCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            aCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            aImageView.topAnchor.constraint(equalTo: containerView.topAnchor),
+            aImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            aImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            aImageView.heightAnchor.constraint(equalToConstant: 600),
+            
+            popularLabel.topAnchor.constraint(equalTo: aImageView.bottomAnchor, constant: 5),
+            popularLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10),
+            popularLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10),
+            
+            aCollectionViewPopular.topAnchor.constraint(equalTo: popularLabel.bottomAnchor),
+            aCollectionViewPopular.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            aCollectionViewPopular.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            aCollectionViewPopular.heightAnchor.constraint(equalToConstant: 500),
+            
+            topRateLabel.topAnchor.constraint(equalTo: aCollectionViewPopular.bottomAnchor, constant: 10),
+            topRateLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10),
+            topRateLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10),
+            
+            aCollectionViewTopRate.topAnchor.constraint(equalTo: topRateLabel.bottomAnchor),
+            aCollectionViewTopRate.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10),
+            aCollectionViewTopRate.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10),
+            aCollectionViewTopRate.heightAnchor.constraint(equalToConstant: 500),
             
             spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor),
@@ -78,13 +157,22 @@ class TVViewController: UIViewController {
 
 extension TVViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.getCount()
+        if collectionView == aCollectionViewPopular{
+            return viewModel.getPopularCount()
+        }
+        return viewModel.getTopRateCount()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InfoCollectionViewCell().identifier, for: indexPath) as? InfoCollectionViewCell else { return UICollectionViewCell() }
-        let tvShow = viewModel.getDataTV(index: indexPath.row)
-        cell.configureTVCell(model: tvShow)
+        if collectionView == aCollectionViewPopular {
+            let tvShow = viewModel.getPopularData(index: indexPath.row)
+            cell.configureTVCell(model: tvShow)
+        }else{
+            let tvShow = viewModel.getTopRateData(index: indexPath.row)
+            cell.configurePopularMovieCell(model: tvShow)
+        }
+        
         return cell
     }
     
@@ -94,7 +182,7 @@ extension TVViewController: UICollectionViewDelegate, UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let tvDetailController = TVDetailViewController()
-        tvDetailController.idObject = viewModel.getDataTV(index: indexPath.row).id
+        tvDetailController.idObject = viewModel.getPopularData(index: indexPath.row).id
         self.navigationController?.pushViewController(tvDetailController, animated: true)
     }
     
@@ -103,9 +191,21 @@ extension TVViewController: UICollectionViewDelegate, UICollectionViewDataSource
 //MARK: - TVViewModelDelegate
 
 extension TVViewController: TVViewModelDelegate {
-    func updateCollection() {
+    func updateTopRateCollection() {
         DispatchQueue.main.async {
-            self.aCollectionView.reloadData()
+            self.aCollectionViewTopRate.reloadData()
+        }
+    }
+    
+    func updateLastShow(url: URL) {
+        DispatchQueue.main.async {
+            self.aImageView.loadImage(at: url)
+        }
+    }
+    
+    func updatePopularCollection() {
+        DispatchQueue.main.async {
+            self.aCollectionViewPopular.reloadData()
         }
     }
 }

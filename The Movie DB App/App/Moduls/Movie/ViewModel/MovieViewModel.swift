@@ -74,7 +74,8 @@ class MovieViewModel {
             if let path = lastMovie.posterPath {
                 guard let url = URL(string: "\(self.baseImage)\(path)") else { return }
                 self.delegate?.updateLastMovie(url: url)
-            }else{
+            }
+            else{
                 if let path = self.moviesTopRateData[0].posterPath{
                     guard let url = URL(string: "\(self.baseImage)\(path)") else { return }
                     self.delegate?.updateLastMovie(url: url)

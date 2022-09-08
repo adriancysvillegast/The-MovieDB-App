@@ -17,6 +17,7 @@ class LastMovieService: LastMovieServiceFetching {
     private let endPointLastMovies = ProcessInfo.processInfo.environment["endPointLastMovies"]!
     private let apiKey = ProcessInfo.processInfo.environment["apiKey"]!
     
+    // MARK: - get service
     func get(onComplete: @escaping (LastMovieResponse) -> (), onError: @escaping (String) -> ()) {
         APIManager.shared.get(url: "\(baseURL)\(endPointLastMovies)api_key=\(apiKey)") { data in
             guard let safeData = data else { return }

@@ -114,7 +114,7 @@ class InfoCollectionViewCell: UICollectionViewCell {
         self.releaseDate.text = model.releaseDate
     }
     
-    func configureTVCell(model: TVShowResponse) {
+    func configureTVCell(model: PopularTVShowResponse) {
         guard let imagePath = model.posterPath else { return }
         guard let imageURL = URL(string:"\(baseImage)\(imagePath)") else { return }
         self.imageView.loadImage(at: imageURL)
@@ -129,6 +129,15 @@ class InfoCollectionViewCell: UICollectionViewCell {
         self.imageView.loadImage(at: imageURL)
         self.nameMovie.text = model.originalTitle
         self.releaseDate.text = model.releaseDate
+        self.descriptionLabel.text = model.overview
+    }
+    
+    func configurePopularMovieCell(model: TopRateTVShowResponse) {
+        guard let imagePath = model.posterPath else { return }
+        guard let imageURL = URL(string:"\(baseImage)\(imagePath)") else { return }
+        self.imageView.loadImage(at: imageURL)
+        self.nameMovie.text = model.originalName
+        self.releaseDate.text = model.firstAirDate
         self.descriptionLabel.text = model.overview
     }
 }

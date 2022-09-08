@@ -54,7 +54,7 @@ class TVDetailViewModel {
         let newObject = TVShowsDetailModel(adult: show.adult, genres: genres, numberOfEpisodes: show.numberOfEpisodes, numberOfSeasons: show.numberOfSeasons, originalLanguage: show.originalLanguage, originalTitle: show.originalName, overview: show.overview, popularity: show.popularity, posterPath: imageShow, productionCompanies: companiesImage, imageURL: url)
         return newObject
     }
-    
+
     private func getGenres(show: TVShowsDetailResponse) -> [String] {
         var genres: [String] = []
         for show in  show.genres {
