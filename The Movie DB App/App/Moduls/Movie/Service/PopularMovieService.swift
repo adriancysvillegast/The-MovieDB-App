@@ -11,10 +11,13 @@ protocol PopularMovieServiceFeatching {
     func get(onComplete: @escaping ([PopularMovieResponse]) -> (), onError: @escaping (String) -> () )
 }
 class PopularMovieService: PopularMovieServiceFeatching {
+    // MARK: - properties
+    
     private let baseURL = ProcessInfo.processInfo.environment["baseURL"]!
     private let endPointPopularMovie = ProcessInfo.processInfo.environment["endPointPopularMovie"]!
     private let apiKey = ProcessInfo.processInfo.environment["apiKey"]!
     
+    // MARK: - get service
     func get(onComplete: @escaping ([PopularMovieResponse]) -> (),
              onError: @escaping (String) -> ()) {
         APIManager.shared.get(url: "\(baseURL)\(endPointPopularMovie)api_key=\(apiKey)") { data in

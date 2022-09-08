@@ -19,7 +19,7 @@ class TopRateMovieService: TopRateMovieServiceFetching {
     private let endPointTopMovie = ProcessInfo.processInfo.environment["endPointTopMovie"]!
     private let apiKey = ProcessInfo.processInfo.environment["apiKey"]!
     
-    //MARK: - get movies
+    //MARK: - get service
     
     func get(onComplete: @escaping ([TopRateMovieResponse]) -> (), onError: @escaping (String) -> ()) {
         APIManager.shared.get(url: "\(baseURL)\(endPointTopMovie)api_key=\(apiKey)") { data in

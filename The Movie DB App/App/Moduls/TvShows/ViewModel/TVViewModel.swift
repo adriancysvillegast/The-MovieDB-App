@@ -8,45 +8,89 @@
 import Foundation
 
 protocol TVViewModelDelegate: AnyObject {
-    func updateCollection()
+    func updatePopularCollection()
+    func updateTopRateCollection()
+    func updateLastShow(url: URL)
 }
 
 class TVViewModel {
     //MARK: - properties
-    
-    var service: TVServiceFetching?
+    private let baseImage = ProcessInfo.processInfo.environment["baseImage"]!
+    var popularService: PopularTVServiceFetching?
+    var lastService: LastTVServiceFetching?
+    var topRateService: TopRateTVServiceFetching?
     weak var delegate: TVViewModelDelegate?
     weak var delegateSpinner: SpinnerLoadDelegate?
     weak var delegateError: ShowErrorDelegate?
-    var showData: [TVShowResponse] = []
+    var popularTVShow: [PopularTVShowResponse] = []
+    var topRateTVShow: [TopRateTVShowResponse] = []
     
-    init(service: TVServiceFetching = TVService()) {
-        self.service = service
+    init(popularService: PopularTVServiceFetching = PopularTVService(), lastService: LastTVServiceFetching = LastTVService(), topRateService: TopRateTVServiceFetching = TopRateTVService() ) {
+        self.popularService = popularService
+        self.lastService = lastService
+        self.topRateService = topRateService
     }
     
-    //MARK: - get tv shows
+    //MARK: - get popular tv shows
     
-    func getTVData() {
+    func getPopularTVShows() {
         self.delegateSpinner?.showSpinner()
-        service?.get(onComplete: { shows in
-            self.showData = shows
-            self.delegate?.updateCollection()
+        popularService?.get(onComplete: { shows in
+            self.popularTVShow = shows
+            self.delegate?.updatePopularCollection()
             self.delegateSpinner?.hideSpinner()
         }, onError: { error in
             self.delegateError?.showError(title: Constants.errorTitle, message: error)
             self.delegateSpinner?.hideSpinner()
         })
     }
-
-    //MARK: - ShowData
     
-    func getCount() -> Int {
-        return showData.count
+    func getPopularCount() -> Int {
+        return popularTVShow.count
     }
     
-    func getDataTV(index: Int) -> TVShowResponse {
-        return showData[index]
+    func getPopularData(index: Int) -> PopularTVShowResponse {
+        return popularTVShow[index]
     }
+    
+    // MARK: - get last TvShow
+    
+    func getLastTVShow() {
+        lastService?.get(onComplete: { lastShow in
+            if let path = lastShow.posterPath {
+                guard let url = URL(string: "\(self.baseImage)\(path)") else { return }
+                self.delegate?.updateLastShow(url: url)
+            }else{
+                if let path = self.popularTVShow[0].posterPath{
+                    guard let url = URL(string: "\(self.baseImage)\(path)") else { return }
+                    self.delegate?.updateLastShow(url: url)
+                }
+            }
+        }, onError: { error in
+            self.delegateError?.showError(title: Constants.errorTitle, message: error)
+        })
+    }
+    
+    
+    // MARK: - get top rate tv show
+    
+    func getTopRateTVShows() {
+        topRateService?.get(onComplete: { show in
+            self.topRateTVShow = show
+            self.delegate?.updateTopRateCollection()
+        }, onError: { error in
+            self.delegateError?.showError(title: Constants.errorTitle, message: error)
+        })
+    }
+    
+    func getTopRateCount() -> Int {
+        return topRateTVShow.count
+    }
+    
+    func getTopRateData(index: Int) -> TopRateTVShowResponse {
+        return topRateTVShow[index]
+    }
+    
 }
 
 

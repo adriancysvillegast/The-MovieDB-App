@@ -9,8 +9,8 @@ import Foundation
 @testable import The_Movie_DB_App
 
 
-class MockTVShowServiceFail: TVServiceFetching {
-    func get(onComplete: @escaping ([TVShowResponse]) -> (), onError: @escaping (String) -> ()) {
+class MockTVShowServiceFail: PopularTVServiceFetching {
+    func get(onComplete: @escaping ([PopularTVShowResponse]) -> (), onError: @escaping (String) -> ()) {
         onError(Constants.APIManagerErrors.error)
     }
 }
