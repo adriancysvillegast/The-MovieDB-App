@@ -20,7 +20,6 @@ class TopRateTVService: TopRateTVServiceFetching {
     // MARK: - get service
     
     func get(onComplete: @escaping ([TopRateTVShowResponse]) -> (), onError: @escaping (String) -> ()) {
-        print("\(baseURL)\(endPointTVShowTopRate)api_key=\(apiKey)")
         APIManager.shared.get(url: "\(baseURL)\(endPointTVShowTopRate)api_key=\(apiKey)") { data in
             guard let safeData = data else { return }
             do{
