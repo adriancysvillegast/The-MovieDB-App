@@ -181,9 +181,16 @@ extension TVViewController: UICollectionViewDelegate, UICollectionViewDataSource
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let tvDetailController = TVDetailViewController()
-        tvDetailController.idObject = viewModel.getPopularData(index: indexPath.row).id
-        self.navigationController?.pushViewController(tvDetailController, animated: true)
+        if collectionView == aCollectionViewPopular{
+            let tvDetailController = TVDetailViewController()
+            tvDetailController.idObject = viewModel.getPopularData(index: indexPath.row).id
+            self.navigationController?.pushViewController(tvDetailController, animated: true)
+        }else{
+            let tvDetailController = TVDetailViewController()
+            tvDetailController.idObject = viewModel.getTopRateData(index: indexPath.row).id
+            self.navigationController?.pushViewController(tvDetailController, animated: true)
+        }
+        
     }
     
 }
