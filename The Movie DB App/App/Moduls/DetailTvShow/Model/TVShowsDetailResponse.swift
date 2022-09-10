@@ -19,4 +19,5 @@ struct TVShowsDetailResponse: Codable {
     let popularity: Float
     let posterPath: String?
     let productionCompanies: [CompaniesResponse]
+    let firstAirdate: String?
 }

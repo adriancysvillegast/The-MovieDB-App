@@ -19,4 +19,5 @@ struct TVShowsDetailModel {
     let posterPath: String?
     let productionCompanies: [String]
     let imageURL: URL?
+    let firstAirDate: String?
 }

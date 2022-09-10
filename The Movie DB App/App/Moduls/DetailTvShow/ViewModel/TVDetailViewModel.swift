@@ -51,7 +51,7 @@ class TVDetailViewModel {
         let companiesImage = getCompanies(show: show)
         let imageShow = getImageURL(show: show)
         let url = URL(string: "\(baseImage)\(show.posterPath ?? "" )")
-        let newObject = TVShowsDetailModel(adult: show.adult, genres: genres, numberOfEpisodes: show.numberOfEpisodes, numberOfSeasons: show.numberOfSeasons, originalLanguage: show.originalLanguage, originalTitle: show.originalName, overview: show.overview, popularity: show.popularity, posterPath: imageShow, productionCompanies: companiesImage, imageURL: url)
+        let newObject = TVShowsDetailModel(adult: show.adult, genres: genres, numberOfEpisodes: show.numberOfEpisodes, numberOfSeasons: show.numberOfSeasons, originalLanguage: show.originalLanguage, originalTitle: show.originalName, overview: show.overview, popularity: show.popularity, posterPath: imageShow, productionCompanies: companiesImage, imageURL: url, firstAirDate: show.firstAirdate)
         return newObject
     }
 

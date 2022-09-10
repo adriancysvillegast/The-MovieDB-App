@@ -209,11 +209,11 @@ extension  MovieViewController: UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == aCollectionViewTR {
-            let detailVC = DetailViewController()
+            let detailVC = MovieDetailViewController()
             detailVC.idObject = viewModel.getTopRateMovieData(index: indexPath.row).id
             self.navigationController?.pushViewController(detailVC, animated: true)
         }else {
-            let detailVC = DetailViewController()
+            let detailVC = MovieDetailViewController()
             detailVC.idObject = viewModel.getPopularMovieData(index: indexPath.row).id
             self.navigationController?.pushViewController(detailVC, animated: true)
         }
