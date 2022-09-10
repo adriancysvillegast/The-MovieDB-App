@@ -9,7 +9,9 @@ import UIKit
 
 class ImageCollectionViewCell: UICollectionViewCell {
     //MARK: - properties
+    
     let identifier = "ImageCollectionViewCell"
+    
     private let baseImage = ProcessInfo.processInfo.environment["baseImage"]!
     
     lazy var imageView: UIImageView = {
@@ -30,9 +32,9 @@ class ImageCollectionViewCell: UICollectionViewCell {
         }
 
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            imageView.topAnchor.constraint(equalTo: topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             imageView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
@@ -40,10 +42,30 @@ class ImageCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    // MARK: - configureCells
     
-    func configureCell(model: CompaniesResponse) {
+    func configureCellCompanies(model: CompaniesResponse) {
         guard let link = model.logoPath else { return }
         guard let url = URL(string: "\(baseImage)\(link)") else { return }
         self.imageView.loadImage(at: url)
     }
+    
+    func configureCellTopRateTV(model: TopRateTVShowResponse) {
+        guard let link = model.posterPath else { return }
+        guard let url = URL(string: "\(baseImage)\(link)") else { return }
+        self.imageView.loadImage(at: url)
+    }
+    
+    func configureCellTopRateMovie(model: TopRateMovieResponse) {
+        guard let link = model.posterPath else { return }
+        guard let url = URL(string: "\(baseImage)\(link)") else { return }
+        self.imageView.loadImage(at: url)
+    }
+    
+    func configureCellFavoriteMovie(model: Movie) {
+        guard let link = model.imageMovie else { return }
+        guard let url = URL(string: "\(baseImage)\(link)") else { return }
+        self.imageView.loadImage(at: url)
+    }
+    
 }

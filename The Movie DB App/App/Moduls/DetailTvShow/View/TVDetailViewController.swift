@@ -307,6 +307,8 @@ extension TVDetailViewController: TVDetailViewModelDelegate {
             self.popularityValue.text = String(model.popularity)
             self.lenguageValue.text = model.originalLanguage
             self.titleLabel.text = model.originalTitle
+            self.releaseValue.text = model.firstAirDate
+            self.numberSeasonsValue.text = "\(model.numberOfSeasons ?? 1 )"
         }
     }
     
@@ -346,7 +348,7 @@ extension TVDetailViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell().identifier, for: indexPath) as? ImageCollectionViewCell else { return UICollectionViewCell()}
-        cell.configureCell(model: viewModel.getCompaniesData(index: indexPath.row))
+        cell.configureCellCompanies(model: viewModel.getCompaniesData(index: indexPath.row))
         return cell 
     }
     

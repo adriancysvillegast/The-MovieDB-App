@@ -1,5 +1,5 @@
 //
-//  DetailViewController.swift
+//  MovieDetailViewController.swift
 //  The Movie DB App
 //
 //  Created by Adriancys Jesus Villegas Toro on 17/8/22.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+class MovieDetailViewController: UIViewController {
     
     //MARK: - Properties
     
@@ -292,7 +292,7 @@ class DetailViewController: UIViewController {
 
 //MARK: - DetailViewModelDelegate
 
-extension DetailViewController: DetailViewModelDelegate {
+extension MovieDetailViewController: DetailViewModelDelegate {
     func updateCollection() {
         DispatchQueue.main.async {
             self.aCollectionView.reloadData()
@@ -316,7 +316,7 @@ extension DetailViewController: DetailViewModelDelegate {
 
 //MARK: - SpinnerLoadDelegate
 
-extension DetailViewController: SpinnerLoadDelegate {
+extension MovieDetailViewController: SpinnerLoadDelegate {
     func showSpinner() {
         DispatchQueue.main.async{
             self.spinner.isHidden = false
@@ -334,7 +334,7 @@ extension DetailViewController: SpinnerLoadDelegate {
 
 //MARK: - ShowErrorDelegate
 
-extension DetailViewController: ShowErrorDelegate {
+extension MovieDetailViewController: ShowErrorDelegate {
     func showError(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
@@ -344,14 +344,14 @@ extension DetailViewController: ShowErrorDelegate {
 
 //MARK: - UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
 
-extension  DetailViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension  MovieDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.companiesCount()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell().identifier, for: indexPath) as? ImageCollectionViewCell  else { return UICollectionViewCell() }
-        cell.configureCell(model: viewModel.showCompaniesData(index: indexPath.row))
+        cell.configureCellCompanies(model: viewModel.showCompaniesData(index: indexPath.row))
         return cell
     }
     

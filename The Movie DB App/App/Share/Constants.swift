@@ -18,6 +18,7 @@ struct Constants {
     
     struct ImageDefault {
         static let image = "photo"
+        static let logo = "imageLogo"
     }
     struct APIManagerErrors {
         static let error = "We couldn't get data"
