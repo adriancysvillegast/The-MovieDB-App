@@ -237,8 +237,26 @@ class HomeViewController: UIViewController {
     // MARK: - Add target
     
     func addTarget() {
+        movieButton.addTarget(self, action: #selector(goToMovie), for: .touchUpInside)
+        TVShowButton.addTarget(self, action: #selector(goToTVShow), for: .touchUpInside)
+        categoriesButton.addTarget(self, action: #selector(goToCategories), for: .touchUpInside)
+    }
+    
+    
+    @objc private func goToMovie() {
+        let movieVC = MovieViewController()
+        self.navigationController?.pushViewController(movieVC, animated: true)
+    }
+    
+    @objc private func goToTVShow() {
+        let tvShowVC = TVViewController()
+        self.navigationController?.pushViewController(tvShowVC, animated: true)
+    }
+    
+    @objc private func goToCategories() {
         
     }
+    
     
 }
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
@@ -356,10 +374,11 @@ extension HomeViewController: ShowErrorDelegate {
         let acction = UIAlertAction(title: "Try agrain!", style: .default) { _ in
             self.viewModel.getLastMovie()
             self.viewModel.getTopRateTv()
-            
+            self.viewModel.getTopRateMovie()
+            self.viewModel.getLastTv()
         }
         alert.addAction(acction)
-        alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(alert, animated: true)
     }
 
