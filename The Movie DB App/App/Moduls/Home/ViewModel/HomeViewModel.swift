@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 protocol HomeViewModelDelegate: AnyObject {
     func updateLastMovie(url: URL)
     func updateLastTV(url: URL)
@@ -50,7 +51,7 @@ class HomeViewModel {
                 self.delegate?.updateDefaultImageLastMovie()
             }
         }, onError: { error in
-            print("errorrr getLastMovie")
+            self.delegateError?.showError(title: Constants.errorTitle, message: error)
             self.delegate?.updateDefaultImageLastMovie()
         })
     }
@@ -62,7 +63,6 @@ class HomeViewModel {
             self.topRateTv = shows
             self.delegate?.updateCollectionViewTopRateTV()
         }, onError: { error in
-            print(" error getTopRateTv")
             self.delegateError?.showError(title: Constants.errorTitle, message: error)
         })
     }
@@ -82,7 +82,6 @@ class HomeViewModel {
             self.topRateMovie = movies
             self.delegate?.updateCollectionViewTopRateMovie()
         }, onError: { error in
-            print("error getTopRateMovie")
             self.delegateError?.showError(title: Constants.errorTitle, message: error)
         })
     }
@@ -102,7 +101,6 @@ class HomeViewModel {
             self.favoriteMovie = favMovie
             self.delegate?.updateCollectionViewFavoriteMovie()
         }else{
-            print("error getFavoriteMovies")
             self.delegate?.hideCollectionViewFavoriteMovie()
         }
     }
@@ -128,7 +126,6 @@ class HomeViewModel {
             }
     
         }, onError: { error in
-            print(" error getLastTv")
             self.delegateError?.showError(title: Constants.errorTitle, message: error)
         })
     }
