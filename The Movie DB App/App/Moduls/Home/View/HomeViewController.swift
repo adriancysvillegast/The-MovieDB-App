@@ -11,6 +11,8 @@ class HomeViewController: UIViewController {
     
     // MARK: - Properties
     
+    let userRepository = UserRepository()
+    
     lazy var contentSize = CGSize(width: view.frame.size.width, height: 2800)
     
     lazy var scrollView: UIScrollView = {
@@ -159,6 +161,11 @@ class HomeViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
+    
+    private lazy var profileBotton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: #selector(goToProfile))
+        return button
+    }()
 
     // MARK: - lifeCycle
     
@@ -176,6 +183,7 @@ class HomeViewController: UIViewController {
     // MARK: - setupView
     
     func setupView() {
+        self.navigationItem.rightBarButtonItem = profileBotton
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)
         let buttons = [movieButton, TVShowButton, categoriesButton]
@@ -258,6 +266,26 @@ class HomeViewController: UIViewController {
         self.navigationController?.pushViewController(categoryVC, animated: true)
     }
     
+    @objc func goToProfile() {
+        
+        let alert = UIAlertController(title: "What do you want to do?", message: "", preferredStyle: .actionSheet)
+        let navigateProfile = UIAlertAction(title: "View Profile", style: .default) { _ in
+            let vc = ProfileViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        
+        let navigateHome = UIAlertAction(title: "Log Out", style: .default) { _ in
+            self.userRepository.logOut()
+            let vc = LogInViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+        alert.addAction(navigateProfile)
+        alert.addAction(navigateHome)
+        alert.addAction(cancel)
+        present(alert, animated: true)
+    }
+
     
 }
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
