@@ -24,6 +24,12 @@
 		09837FF128AE65B600E4ECF0 /* CompaniesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09837FF028AE65B600E4ECF0 /* CompaniesResponse.swift */; };
 		09837FF328AE7BFB00E4ECF0 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09837FF228AE7BFB00E4ECF0 /* ImageCollectionViewCell.swift */; };
 		0986123C28AD993100114A4C /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986123B28AD993100114A4C /* MovieDetailViewController.swift */; };
+		098CA6CB28CD882D00DF5309 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098CA6CA28CD882D00DF5309 /* CategoryViewController.swift */; };
+		098CA6CE28CD8A3500DF5309 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098CA6CD28CD8A3500DF5309 /* CategoryTableViewCell.swift */; };
+		098CA6D028CD8F1C00DF5309 /* GenresMovieListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098CA6CF28CD8F1C00DF5309 /* GenresMovieListResponse.swift */; };
+		098CA6D228CD8FF200DF5309 /* GenreMovieListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098CA6D128CD8FF200DF5309 /* GenreMovieListResponse.swift */; };
+		098CA6D428CD914900DF5309 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098CA6D328CD914900DF5309 /* CategoryViewModel.swift */; };
+		098CA6D628CD929600DF5309 /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098CA6D528CD929600DF5309 /* CategoryService.swift */; };
 		099411D428B120F000F246B4 /* TVViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099411D328B120EF00F246B4 /* TVViewModel.swift */; };
 		099411D628B1210E00F246B4 /* PopularTVService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099411D528B1210E00F246B4 /* PopularTVService.swift */; };
 		099411D828B124BF00F246B4 /* PopularTVShowsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099411D728B124BF00F246B4 /* PopularTVShowsResponse.swift */; };
@@ -120,6 +126,12 @@
 		09837FF028AE65B600E4ECF0 /* CompaniesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompaniesResponse.swift; sourceTree = "<group>"; };
 		09837FF228AE7BFB00E4ECF0 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		0986123B28AD993100114A4C /* MovieDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
+		098CA6CA28CD882D00DF5309 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		098CA6CD28CD8A3500DF5309 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
+		098CA6CF28CD8F1C00DF5309 /* GenresMovieListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresMovieListResponse.swift; sourceTree = "<group>"; };
+		098CA6D128CD8FF200DF5309 /* GenreMovieListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreMovieListResponse.swift; sourceTree = "<group>"; };
+		098CA6D328CD914900DF5309 /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
+		098CA6D528CD929600DF5309 /* CategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryService.swift; sourceTree = "<group>"; };
 		099411D328B120EF00F246B4 /* TVViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVViewModel.swift; sourceTree = "<group>"; };
 		099411D528B1210E00F246B4 /* PopularTVService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularTVService.swift; sourceTree = "<group>"; };
 		099411D728B124BF00F246B4 /* PopularTVShowsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularTVShowsResponse.swift; sourceTree = "<group>"; };
@@ -326,6 +338,59 @@
 				09A1280628ADA5B2006F1303 /* DetailService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		098CA6C528CD87D500DF5309 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				098CA6C928CD87F300DF5309 /* Service */,
+				098CA6C828CD87ED00DF5309 /* Model */,
+				098CA6C728CD87E600DF5309 /* View */,
+				098CA6C628CD87DE00DF5309 /* ViewModel */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		098CA6C628CD87DE00DF5309 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				098CA6D328CD914900DF5309 /* CategoryViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		098CA6C728CD87E600DF5309 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				098CA6CC28CD8A0200DF5309 /* Cells */,
+				098CA6CA28CD882D00DF5309 /* CategoryViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		098CA6C828CD87ED00DF5309 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				098CA6CF28CD8F1C00DF5309 /* GenresMovieListResponse.swift */,
+				098CA6D128CD8FF200DF5309 /* GenreMovieListResponse.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		098CA6C928CD87F300DF5309 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				098CA6D528CD929600DF5309 /* CategoryService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		098CA6CC28CD8A0200DF5309 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				098CA6CD28CD8A3500DF5309 /* CategoryTableViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		09A1281028ADDA56006F1303 /* TvShows */ = {
@@ -537,6 +602,7 @@
 		09BC2C4E28AD27C2008842CE /* Moduls */ = {
 			isa = PBXGroup;
 			children = (
+				098CA6C528CD87D500DF5309 /* Category */,
 				09D32E4B28CABFFF00357356 /* Home */,
 				09B1B0EC28B6B791006DB7DA /* OnBoarding */,
 				09D7729A28B410920002C952 /* DetailTvShow */,
@@ -977,11 +1043,14 @@
 				09A1280728ADA5B2006F1303 /* DetailService.swift in Sources */,
 				09D772A028B411010002C952 /* TVDetailViewController.swift in Sources */,
 				09D772A628B418890002C952 /* TVShowsDetailResponse.swift in Sources */,
+				098CA6D628CD929600DF5309 /* CategoryService.swift in Sources */,
 				09D32E4628CA5B7F00357356 /* TopRateTVShowResponse.swift in Sources */,
 				099411DA28B1262F00F246B4 /* PopularTVShowResponse.swift in Sources */,
+				098CA6D028CD8F1C00DF5309 /* GenresMovieListResponse.swift in Sources */,
 				09BC2C4128AD2795008842CE /* The_Movie_DB_App.xcdatamodeld in Sources */,
 				0911A81628B56AF800F5B0BD /* TVShowsDetailModel.swift in Sources */,
 				09B631E128C4D71200D516FA /* LastMovieResponse.swift in Sources */,
+				098CA6CB28CD882D00DF5309 /* CategoryViewController.swift in Sources */,
 				099411D828B124BF00F246B4 /* PopularTVShowsResponse.swift in Sources */,
 				09D772A228B4164B0002C952 /* TVDetailViewModel.swift in Sources */,
 				09837FEF28AE652900E4ECF0 /* DataBaseCRUD.swift in Sources */,
@@ -999,6 +1068,7 @@
 				09D772A828B4190F0002C952 /* TVDetailService.swift in Sources */,
 				09D32E4828CA889100357356 /* LastTVService.swift in Sources */,
 				09A1280B28ADB49E006F1303 /* SpinnerLoadDelegate.swift in Sources */,
+				098CA6D228CD8FF200DF5309 /* GenreMovieListResponse.swift in Sources */,
 				09BC2C6128AD43CB008842CE /* TopRateMoviesResponse.swift in Sources */,
 				091D9BEF28AF9FC5009B6726 /* SignUpViewController.swift in Sources */,
 				09A4AE1D28AF4E87004EC568 /* LogInViewController.swift in Sources */,
@@ -1012,8 +1082,10 @@
 				09BC2C3928AD2795008842CE /* SceneDelegate.swift in Sources */,
 				09A1280928ADAA4A006F1303 /* DetailViewModel.swift in Sources */,
 				09D32E4428CA588800357356 /* TopRateTVShowsResponse.swift in Sources */,
+				098CA6CE28CD8A3500DF5309 /* CategoryTableViewCell.swift in Sources */,
 				09B631E528C5214000D516FA /* PopularMoviesResponse.swift in Sources */,
 				09BC2C5F28AD3EE1008842CE /* TopRateMovieService.swift in Sources */,
+				098CA6D428CD914900DF5309 /* CategoryViewModel.swift in Sources */,
 				09D32E4228CA554200357356 /* TopRateTVService.swift in Sources */,
 				09A1280228ADA43A006F1303 /* MovieDetailResponse.swift in Sources */,
 				09D32E5328CB90E200357356 /* HomeViewModel.swift in Sources */,
