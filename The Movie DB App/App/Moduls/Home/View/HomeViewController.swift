@@ -254,7 +254,8 @@ class HomeViewController: UIViewController {
     }
     
     @objc private func goToCategories() {
-        
+        let categoryVC = CategoryViewController()
+        self.navigationController?.pushViewController(categoryVC, animated: true)
     }
     
     

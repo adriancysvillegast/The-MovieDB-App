@@ -57,6 +57,11 @@
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
+            key = "endPointMovieCategory"
+            value = "/genre/movie/list?"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
             key = "endPointTVShowLast"
             value = "/tv/latest?"
             isEnabled = "YES">
