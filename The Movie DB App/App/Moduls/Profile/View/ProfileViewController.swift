@@ -19,7 +19,7 @@ class ProfileViewController: UIViewController {
         return viewModel
     }()
     
-    lazy var contentSize = CGSize(width: view.frame.size.width, height: 750)
+    lazy var contentSize = CGSize(width: view.frame.size.width, height: 1200)
     
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -73,9 +73,35 @@ class ProfileViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    private lazy var aCollectionView: UICollectionView = {
+    
+    private lazy var aCollectionViewMovie: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
+        layout.scrollDirection = .horizontal
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(InfoCollectionViewCell.self, forCellWithReuseIdentifier: InfoCollectionViewCell().identifier)
+        collectionView.backgroundColor = UIColor(named: Constants.ColorBackground.viewBackControllers)
+        collectionView.showsHorizontalScrollIndicator = true
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
+    
+    private lazy var favoriteTVShow: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.textColor = .white
+        label.text = "Favorite TV Shows"
+        label.numberOfLines = 1
+        label.textAlignment = .left
+        label.baselineAdjustment = .alignBaselines
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var aCollectionViewTV: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(InfoCollectionViewCell.self, forCellWithReuseIdentifier: InfoCollectionViewCell().identifier)
         collectionView.backgroundColor = UIColor(named: Constants.ColorBackground.viewBackControllers)
@@ -111,7 +137,7 @@ class ProfileViewController: UIViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)
         
-        [welcome, nameUser, favoriteMovie, aCollectionView].forEach {
+        [welcome, nameUser, favoriteMovie, aCollectionViewMovie, favoriteTVShow, aCollectionViewTV].forEach {
             containerView.addSubview($0)
         }
     }
@@ -129,10 +155,20 @@ class ProfileViewController: UIViewController {
             favoriteMovie.leadingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             favoriteMovie.trailingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             
-            aCollectionView.topAnchor.constraint(equalTo: favoriteMovie.bottomAnchor, constant: 50),
-            aCollectionView.leadingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            aCollectionView.trailingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            aCollectionView.bottomAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.bottomAnchor, constant: -50)
+            aCollectionViewMovie.topAnchor.constraint(equalTo: favoriteMovie.bottomAnchor, constant: 5),
+            aCollectionViewMovie.leadingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            aCollectionViewMovie.trailingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            
+            aCollectionViewMovie.heightAnchor.constraint(equalToConstant: 500),
+            
+            favoriteTVShow.topAnchor.constraint(equalTo: aCollectionViewMovie.bottomAnchor, constant: 30),
+            favoriteTVShow.leadingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            favoriteTVShow.trailingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            
+            aCollectionViewTV.topAnchor.constraint(equalTo: favoriteTVShow.bottomAnchor, constant: 5),
+            aCollectionViewTV.leadingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            aCollectionViewTV.trailingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            aCollectionViewTV.heightAnchor.constraint(equalToConstant: 500),
         ])
     }
     
@@ -175,7 +211,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width/2.3, height: view.frame.height/2)
+        return CGSize(width: view.frame.width/2.2, height: view.frame.height/2)
     }
 }
 
