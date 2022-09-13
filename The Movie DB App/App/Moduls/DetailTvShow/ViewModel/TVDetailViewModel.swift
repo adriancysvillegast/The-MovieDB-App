@@ -18,8 +18,11 @@ class TVDetailViewModel {
 
     weak var delegate: TVDetailViewModelDelegate?
     weak var delegateSpinner: SpinnerLoadDelegate?
+    weak var delegateError: ShowErrorDelegate?
     var service: TVDetailServiceFetching?
     var tvShowCompanies: [CompaniesResponse] = []
+    var tvSelected: TVShowsDetailResponse?
+    
     //MARK: - init
     init(service: TVDetailServiceFetching = TVDetailService()) {
         self.service = service
@@ -34,6 +37,7 @@ class TVDetailViewModel {
         }
 
         service?.get(id: id, onComplete: { data in
+            self.tvSelected = data
             let info = self.createObject(show: data)
             self.tvShowCompanies = data.productionCompanies
             self.delegate?.updateView(model: info)
@@ -41,7 +45,7 @@ class TVDetailViewModel {
             self.delegate?.reloadCollection()
         }, onError: { e in
             self.delegateSpinner?.hideSpinner()
-            print(e)
+            self.delegateError?.showError(title: Constants.errorTitle, message: e)
         })
     }
     
@@ -95,6 +99,19 @@ class TVDetailViewModel {
     func getCompaniesData(index: Int) -> CompaniesResponse {
         return tvShowCompanies[index]
     }
+    
+    // MARK: - Save TVShow
+    
+    func saveTv() {
+        if let tvSelected = tvSelected {
+            if DataBaseCRUD.share.saveTVShow(model: tvSelected){
+                self.delegateError?.showError(title: "\(String(describing: tvSelected.originalName)) was added to favorite list", message: "")
+            }else{
+                self.delegateError?.showError(title: "Error saving TV Show", message: "")
+            }
+        }
+    }
+    
 }
 
 

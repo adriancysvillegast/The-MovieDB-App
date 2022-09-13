@@ -15,9 +15,9 @@ class DataBaseCRUD {
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
     
-    //MARK: - save
+    //MARK: - saveMovie
     
-    func createObjec(movie: DetailModel) -> Bool{
+    func saveMovie(movie: DetailModel) -> Bool{
         let newMovie = Movie(context: context)
         
         if let link = movie.posterPath{
@@ -31,6 +31,26 @@ class DataBaseCRUD {
         newMovie.languageMovie = movie.originalLanguage
         newMovie.releaseDate = movie.releaseDate
         newMovie.genre = movie.genres.joined(separator: ",")
+        return saveData()
+    }
+    
+    // MARK: - saveTvShow
+    
+    func saveTVShow(model: TVShowsDetailResponse) -> Bool {
+        var genres: [String] = []
+        let tvShow = TVShow(context: context)
+        tvShow.id = Int64(model.id)
+        tvShow.language = model.originalLanguage
+        tvShow.title = model.originalName
+        tvShow.number_Seasons = Int64(model.numberOfSeasons ?? 1)
+        tvShow.number_episodes = Int64(model.numberOfEpisodes ?? 1)
+        tvShow.overview = model.overview
+        tvShow.popularity = model.popularity
+        tvShow.image = model.posterPath
+        for genre in model.genres{
+            genres.append(genre.name)
+        }
+        tvShow.genre = genres.joined(separator:",")
         return saveData()
     }
     
@@ -52,9 +72,9 @@ class DataBaseCRUD {
         
     }
     
-    //MARK: - LoadData
+    //MARK: - getMovieSaved
     
-    func readData() -> [Movie]? {
+    func getMovieSaved() -> [Movie]? {
         var result: [Movie]? = []
         let request: NSFetchRequest<Movie> = Movie.fetchRequest()
         
@@ -65,4 +85,18 @@ class DataBaseCRUD {
         }
         return result
     }
+    
+    func getTVShowSaved() -> [TVShow]? {
+        var result: [TVShow] = []
+        
+        let request: NSFetchRequest<TVShow> = TVShow.fetchRequest()
+        do{
+            result = try context.fetch(request)
+        }catch{
+            _ = error.localizedDescription
+        }
+        return result
+    }
+    
+    
 }

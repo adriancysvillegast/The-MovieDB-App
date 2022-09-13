@@ -33,7 +33,7 @@ class ProfileViewModel {
     
     func getFavoriteMovies() {
         self.delegateSpinner?.showSpinner()
-        if let dataOnDB = DataBaseCRUD.share.readData(){
+        if let dataOnDB = DataBaseCRUD.share.getMovieSaved(){
             movieData =  createObject(movie: dataOnDB)
             self.delegateSpinner?.hideSpinner()
         }else{
