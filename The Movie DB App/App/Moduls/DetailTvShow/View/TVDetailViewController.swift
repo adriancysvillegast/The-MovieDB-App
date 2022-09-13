@@ -16,6 +16,7 @@ class TVDetailViewController: UIViewController {
         let viewModel = TVDetailViewModel()
         viewModel.delegate = self
         viewModel.delegateSpinner = self
+        viewModel.delegateError = self
         return viewModel
     }()
     
@@ -203,6 +204,11 @@ class TVDetailViewController: UIViewController {
         return spinner
     }()
     
+    private lazy var addFavorite: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(systemName: "star"), style: .done, target: self, action: #selector(saveMovie))
+        return button
+    }()
+    
     //MARK: - lifeCycle
     
     override func viewDidLoad() {
@@ -210,11 +216,14 @@ class TVDetailViewController: UIViewController {
         setupView()
         setupConstraints()
         viewModel.getData(id: idObject)
+        viewModel.getTVSaved()
+        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
     }
     
     //MARK: - setupViews
     
     private func setupView() {
+        self.navigationItem.rightBarButtonItem = addFavorite
         view.backgroundColor = UIColor(named: Constants.ColorBackground.viewBackControllers)
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)
@@ -292,6 +301,12 @@ class TVDetailViewController: UIViewController {
         ])
     }
     
+    // MARK: - Targets
+    
+        @objc func saveMovie() {
+            viewModel.saveTv()
+        }
+    
 }
 
 //MARK: - TVDetailViewModelDelegate
@@ -355,5 +370,16 @@ extension TVDetailViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width/3.5, height: view.frame.height)
     }
+    
+}
+
+
+extension TVDetailViewController: ShowErrorDelegate {
+    func showError(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(alert, animated: true)
+    }
+    
     
 }

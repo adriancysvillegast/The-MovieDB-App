@@ -102,7 +102,7 @@ class DetailViewModel {
             return
         }
         
-        if DataBaseCRUD.share.createObjec(movie: movieSelect){
+        if DataBaseCRUD.share.saveMovie(movie: movieSelect){
             self.delegateError?.showError(title: "\(movieSelect.originalTitle) was added to favorite List", message: "")
         }else{
             self.delegateError?.showError(title: "Error saving Movie", message: "")

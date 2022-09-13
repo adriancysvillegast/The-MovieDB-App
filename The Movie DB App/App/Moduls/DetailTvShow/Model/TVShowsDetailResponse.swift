@@ -8,6 +8,7 @@
 import Foundation
 
 struct TVShowsDetailResponse: Codable {
+    let id: Int
     let adult: Bool
     let genres: [GenreResponse]
     let numberOfEpisodes: Int?

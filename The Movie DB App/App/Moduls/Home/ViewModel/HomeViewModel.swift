@@ -97,7 +97,7 @@ class HomeViewModel {
     // MARK: - get Favorite Movies
     
     func getFavoriteMovies() {
-        if let favMovie = DataBaseCRUD.share.readData(){
+        if let favMovie = DataBaseCRUD.share.getMovieSaved(){
             self.favoriteMovie = favMovie
             self.delegate?.updateCollectionViewFavoriteMovie()
         }else{
