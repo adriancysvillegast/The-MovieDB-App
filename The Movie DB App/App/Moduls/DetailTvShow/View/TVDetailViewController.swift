@@ -216,8 +216,7 @@ class TVDetailViewController: UIViewController {
         setupView()
         setupConstraints()
         viewModel.getData(id: idObject)
-        viewModel.getTVSaved()
-        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+//        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
     }
     
     //MARK: - setupViews
