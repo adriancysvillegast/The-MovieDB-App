@@ -20,19 +20,21 @@ class LogInService: LogInServiceFetching{
     
     //MARK: - get token
     func get(onComplete: @escaping (GuestSessionResponse) -> (), onError: @escaping (String) -> ()) {
-        APIManager.shared.get(url: "\(baseURL)\(endpointGuestSession)api_key=\(apiKey)") { data in
-            guard let safeData = data else { return }
-            do{
-                let decoder = JSONDecoder()
-                decoder.keyDecodingStrategy = .convertFromSnakeCase
-                let guestSession = try decoder.decode(GuestSessionResponse.self, from: safeData)
-                onComplete(guestSession)
-            }catch{
+        APIManager.shared.get(url: "\(baseURL)\(endpointGuestSession)api_key=\(apiKey)") { response in
+            switch response {
+            case .success(let data):
+                guard let safeData = data else { return }
+                do{
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let info = try decoder.decode(GuestSessionResponse.self, from: safeData)
+                    onComplete(info)
+                }catch{
+                    onError(error.localizedDescription)
+                }
+            case .failure(let error):
                 onError(error.localizedDescription)
             }
-        } onError: { error in
-            guard let e = error else { return }
-            onError(e.localizedDescription)
         }
     }
     
