@@ -141,4 +141,15 @@ class InfoCollectionViewCell: UICollectionViewCell {
         self.releaseDate.text = model.firstAirDate
         self.descriptionLabel.text = model.overview
     }
+    
+    func configureTVShowDB(model: TVShow) {
+        if let path = model.image{
+            guard let url = URL(string: "\(self.baseImage)\(path)") else { return }
+            self.imageView.loadImage(at: url)
+        }
+        self.nameMovie.text = model.title
+        self.descriptionLabel.text = model.overview
+        self.releaseDate.isHidden = true
+    }
+    
 }

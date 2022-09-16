@@ -127,7 +127,8 @@ class ProfileViewController: UIViewController {
         setupView()
         setupConstraints()
         viewModel.getUserName()
-        viewModel.getFavoriteMovies()
+        viewModel.getMoviesFavorite()
+        viewModel.getTVShowFavorite()
     }
     //MARK: - setUpView
     
@@ -177,6 +178,28 @@ class ProfileViewController: UIViewController {
 //MARK: - ProfileViewModelDelegate
 
 extension ProfileViewController: ProfileViewModelDelegate {
+    func hideMovieProperties() {
+        self.favoriteMovie.isHidden = true
+        self.aCollectionViewMovie.isHidden = true
+    }
+    
+    func reloadTVCollection() {
+        DispatchQueue.main.async {
+            self.aCollectionViewTV.reloadData()
+        }
+    }
+    
+    func reloadMovieCollection() {
+        DispatchQueue.main.async {
+            self.aCollectionViewMovie.reloadData()
+        }
+    }
+    
+    func hideTVProperties() {
+        self.favoriteTVShow.isHidden = true
+        self.aCollectionViewTV.isHidden = true
+    }
+    
     func updateName(name: String?) {
         self.nameUser.text = name ?? "" 
     }
@@ -200,13 +223,21 @@ extension ProfileViewController: SpinnerLoadDelegate {
 
 extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout  {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.getCountData()
+        if collectionView == aCollectionViewMovie {
+            return viewModel.getMovieCount()
+        }
+        return viewModel.getTVShowCount()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InfoCollectionViewCell().identifier, for: indexPath) as? InfoCollectionViewCell else { return UICollectionViewCell() }
-        let movie = viewModel.getMovieData(index: indexPath.row)
-        cell.configureMovieDB(model: movie)
+        if collectionView == aCollectionViewMovie {
+            let movie = viewModel.getMovieData(index: indexPath.row)
+            cell.configureMovieDB(model: movie)
+        }else{
+            let tv = viewModel.getTVShowData(index: indexPath.row)
+            cell.configureTVShowDB(model: tv)
+        }
         return cell
     }
     

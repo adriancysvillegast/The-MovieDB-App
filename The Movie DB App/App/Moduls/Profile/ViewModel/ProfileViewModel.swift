@@ -9,6 +9,10 @@ import Foundation
 
 protocol ProfileViewModelDelegate: AnyObject {
     func updateName(name: String?)
+    func hideMovieProperties()
+    func hideTVProperties()
+    func reloadTVCollection()
+    func reloadMovieCollection()
 }
 
 class ProfileViewModel {
@@ -18,9 +22,8 @@ class ProfileViewModel {
     weak var delegate: ProfileViewModelDelegate?
     weak var delegateSpinner: SpinnerLoadDelegate?
     weak var delegateError: ShowErrorDelegate?
-    
     var movieData: [MovieModel] = []
-    
+    var tvShowsData: [TVShow] = []
     //MARK: - getUserName
     
     func getUserName() {
@@ -31,10 +34,11 @@ class ProfileViewModel {
     
     //MARK: - getDataMovies
     
-    func getFavoriteMovies() {
+    func getMoviesFavorite() {
         self.delegateSpinner?.showSpinner()
         if let dataOnDB = DataBaseCRUD.share.getMovieSaved(){
             movieData =  createObject(movie: dataOnDB)
+            self.delegate?.reloadMovieCollection()
             self.delegateSpinner?.hideSpinner()
         }else{
             self.delegateError?.showError(title: Constants.ErrorDB.errorTitle, message: Constants.ErrorDB.readError)
@@ -65,7 +69,7 @@ class ProfileViewModel {
         return data
     }
     
-    func getCountData() -> Int {
+    func getMovieCount() -> Int {
         return movieData.count
     }
     
@@ -73,4 +77,25 @@ class ProfileViewModel {
         return movieData[index]
     }
     
+    // MARK: - GetTVShowFavorite
+    
+    func getTVShowFavorite() {
+        self.delegateSpinner?.showSpinner()
+        if let tv = DataBaseCRUD.share.getTVShowSaved() {
+            self.tvShowsData = tv
+            self.delegate?.reloadTVCollection()
+            self.delegateSpinner?.hideSpinner()
+        }else{
+            self.delegate?.hideTVProperties()
+            self.delegateSpinner?.hideSpinner()
+        }
+    }
+    
+    func getTVShowCount() -> Int {
+        return tvShowsData.count
+    }
+    
+    func getTVShowData(index: Int) -> TVShow {
+        return tvShowsData[index]
+    }
 }
