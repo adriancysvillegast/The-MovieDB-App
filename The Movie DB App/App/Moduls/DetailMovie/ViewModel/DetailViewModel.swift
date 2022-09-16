@@ -23,7 +23,7 @@ class DetailViewModel {
     weak var delegateError: ShowErrorDelegate?
     
     var companieArray: [CompaniesResponse] = []
-    var movieSelect: DetailModel?
+    var movieSelect: MovieDetailResponse?
     
     //MARK: - init
     
@@ -40,7 +40,7 @@ class DetailViewModel {
         self.delegateSpinner?.showSpinner()
         service?.get(with: idMovie, onComplete: { data in
             let info = self.createDetailModel(data: data)
-            self.movieSelect = info
+            self.movieSelect = data
             self.companieArray = data.productionCompanies
             self.delegateSpinner?.hideSpinner()
             self.delegate?.updateView(data: info)
@@ -98,10 +98,7 @@ class DetailViewModel {
     
     //MARK: - add Favorite
     func saveMovie() {
-        guard let movieSelect = movieSelect else {
-            return
-        }
-        
+        guard let movieSelect = movieSelect else { return }
         if DataBaseCRUD.share.saveMovie(movie: movieSelect){
             self.delegateError?.showError(title: "\(movieSelect.originalTitle) was added to favorite List", message: "")
         }else{
