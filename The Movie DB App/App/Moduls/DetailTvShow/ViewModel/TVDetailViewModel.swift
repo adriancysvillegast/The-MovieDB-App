@@ -16,6 +16,7 @@ class TVDetailViewModel {
 
     //MARK: - properties
 
+    private let baseImage = ProcessInfo.processInfo.environment["baseImage"]!
     weak var delegate: TVDetailViewModelDelegate?
     weak var delegateSpinner: SpinnerLoadDelegate?
     weak var delegateError: ShowErrorDelegate?
@@ -50,7 +51,6 @@ class TVDetailViewModel {
     }
     
     private func createObject(show: TVShowsDetailResponse) -> TVShowsDetailModel {
-        let baseImage = Constants.baseImage.url
         let genres = getGenres(show: show)
         let companiesImage = getCompanies(show: show)
         let imageShow = getImageURL(show: show)
@@ -68,7 +68,6 @@ class TVDetailViewModel {
     }
     
     private func getCompanies(show: TVShowsDetailResponse) -> [String] {
-        let baseImage = Constants.baseImage.url
         var image: [String] = []
         for show in show.productionCompanies {
             let url = "\(baseImage)\(show.logoPath)"
@@ -78,7 +77,6 @@ class TVDetailViewModel {
     }
     
     private func getImageURL(show: TVShowsDetailResponse) -> String {
-        let baseImage = Constants.baseImage.url
         var image: String = ""
         
         if let url = show.posterPath {
