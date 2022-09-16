@@ -107,11 +107,13 @@ class InfoCollectionViewCell: UICollectionViewCell {
     }
     
     //Recive data from coreData
-    func configureMovieDB(model: MovieModel) {
-        guard let imageData = model.imageData else { return }
-        self.imageView.image = UIImage(data: imageData)
-        self.nameMovie.text = model.originalTitle
-        self.descriptionLabel.text = model.overview
+    func configureMovieDB(model: Movie) {
+        if let path = model.imageMovie {
+            guard let url = URL(string: "\(baseImage)\(path)") else { return }
+            self.imageView.loadImage(at: url)
+        }
+        self.nameMovie.text = model.title
+        self.descriptionLabel.text = model.descriptionMovie
         self.releaseDate.text = model.releaseDate
     }
     

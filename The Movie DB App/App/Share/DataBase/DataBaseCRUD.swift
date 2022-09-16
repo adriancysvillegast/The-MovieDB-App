@@ -17,7 +17,8 @@ class DataBaseCRUD {
     
     //MARK: - saveMovie
     
-    func saveMovie(movie: DetailModel) -> Bool{
+    func saveMovie(movie: MovieDetailResponse) -> Bool{
+        var genres: [String] = []
         let newMovie = Movie(context: context)
         
         if let link = movie.posterPath{
@@ -30,7 +31,11 @@ class DataBaseCRUD {
         newMovie.popularity = movie.popularity
         newMovie.languageMovie = movie.originalLanguage
         newMovie.releaseDate = movie.releaseDate
-        newMovie.genre = movie.genres.joined(separator: ",")
+        for genre in movie.genres {
+            genres.append(genre.name)
+        }
+        newMovie.genre = genres.joined(separator: ",")
+        print(movie.originalTitle)
         return saveData()
     }
     
