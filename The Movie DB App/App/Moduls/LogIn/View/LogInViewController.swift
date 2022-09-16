@@ -241,9 +241,8 @@ extension LogInViewController: LogInViewModelDelegate {
     
     func goToHome() {
         DispatchQueue.main.async {
-            let nextVC = TabBarController()
-            nextVC.modalPresentationStyle = .fullScreen
-            self.present(nextVC, animated: true)
+            let nextVC = HomeViewController()
+            self.navigationController?.pushViewController(nextVC, animated: true)
         }
     }
     

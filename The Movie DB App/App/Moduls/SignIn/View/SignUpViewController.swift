@@ -285,9 +285,8 @@ extension SignUpViewController: SignupViewModelDelegate {
     }
     
     func goToHome() {
-        let vc = TabBarController()
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
+        let vc = HomeViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
 }
