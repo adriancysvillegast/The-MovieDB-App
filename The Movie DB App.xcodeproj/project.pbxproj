@@ -75,7 +75,6 @@
 		09BC2C4128AD2795008842CE /* The_Movie_DB_App.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 09BC2C3F28AD2795008842CE /* The_Movie_DB_App.xcdatamodeld */; };
 		09BC2C4328AD2799008842CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09BC2C4228AD2799008842CE /* Assets.xcassets */; };
 		09BC2C4628AD2799008842CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09BC2C4428AD2799008842CE /* LaunchScreen.storyboard */; };
-		09BC2C5428AD2834008842CE /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BC2C5328AD2834008842CE /* TabBarController.swift */; };
 		09BC2C5D28AD3252008842CE /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BC2C5C28AD3252008842CE /* APIManager.swift */; };
 		09BC2C5F28AD3EE1008842CE /* TopRateMovieService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BC2C5E28AD3EE1008842CE /* TopRateMovieService.swift */; };
 		09BC2C6128AD43CB008842CE /* TopRateMoviesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BC2C6028AD43CB008842CE /* TopRateMoviesResponse.swift */; };
@@ -178,7 +177,6 @@
 		09BC2C4228AD2799008842CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		09BC2C4528AD2799008842CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		09BC2C4728AD2799008842CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		09BC2C5328AD2834008842CE /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		09BC2C5C28AD3252008842CE /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		09BC2C5E28AD3EE1008842CE /* TopRateMovieService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopRateMovieService.swift; sourceTree = "<group>"; };
 		09BC2C6028AD43CB008842CE /* TopRateMoviesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopRateMoviesResponse.swift; sourceTree = "<group>"; };
@@ -633,7 +631,6 @@
 				09B631C328C261E300D516FA /* LoaderImages */,
 				09EC7B8228AF13D0007907F6 /* Reuse-Models */,
 				09BC2C6C28AD5A03008842CE /* Cells */,
-				09BC2C5328AD2834008842CE /* TabBarController.swift */,
 				09A1280A28ADB49E006F1303 /* SpinnerLoadDelegate.swift */,
 				09837FEC28AE62D700E4ECF0 /* ShowErrorDelegate.swift */,
 				091CECB828AF65C200658984 /* ValidationsData.swift */,
@@ -1063,7 +1060,6 @@
 				09A1280F28ADBC3C006F1303 /* DetailModel.swift in Sources */,
 				091CECB728AF657000658984 /* LogInViewModel.swift in Sources */,
 				091CECB928AF65C200658984 /* ValidationsData.swift in Sources */,
-				09BC2C5428AD2834008842CE /* TabBarController.swift in Sources */,
 				09D32E5128CAC17500357356 /* HomeViewController.swift in Sources */,
 				09D772A828B4190F0002C952 /* TVDetailService.swift in Sources */,
 				09D32E4828CA889100357356 /* LastTVService.swift in Sources */,
