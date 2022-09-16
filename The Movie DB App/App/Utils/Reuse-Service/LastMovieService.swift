@@ -19,24 +19,22 @@ class LastMovieService: LastMovieServiceFetching {
     
     // MARK: - get service
     func get(onComplete: @escaping (LastMovieResponse) -> (), onError: @escaping (String) -> ()) {
-        APIManager.shared.get(url: "\(baseURL)\(endPointLastMovies)api_key=\(apiKey)") { data in
-            guard let safeData = data else { return }
-            do{
-                let decoder = JSONDecoder()
-                decoder.keyDecodingStrategy = .convertFromSnakeCase
-                let info = try decoder.decode(LastMovieResponse.self, from: safeData)
-                onComplete(info)
-            }catch{
+        APIManager.shared.get(url: "\(baseURL)\(endPointLastMovies)api_key=\(apiKey)") { response in
+            switch response {
+            case .success( let data):
+                guard let safeData = data else { return }
+                do {
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let info = try decoder.decode(LastMovieResponse.self, from: safeData)
+                    onComplete(info)
+                } catch {
+                    onError(error.localizedDescription)
+                }
+            case .failure(let error):
                 onError(error.localizedDescription)
             }
-        } onError: { error in
-            guard let error = error else { return }
-            onError(error.localizedDescription)
         }
-
     }
-    
-    
-    
-    
+  
 }

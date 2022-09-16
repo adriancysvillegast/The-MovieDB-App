@@ -22,23 +22,22 @@ class CategoryService: CategoryServiceFetching {
     // MARK: - get service
     
     func get(onComplete: @escaping ([GenreMovieListResponse]) -> (), onError: @escaping (String) -> ()) {
-        APIManager.shared.get(url: "\(baseURL)\(endPointMovieCategory)api_key=\(apiKey)") { data in
-            if let safeData = data{
+        APIManager.shared.get(url: "\(baseURL)\(endPointMovieCategory)api_key=\(apiKey)") { response in
+            switch response {
+            case .success(let data):
+                guard let safeData = data else { return}
                 do{
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
                     let info = try decoder.decode(GenresMovieListResponse.self, from: safeData)
                     onComplete(info.genres)
                 }catch{
-                    onError("Catch is working")
+                    onError(error.localizedDescription)
                 }
-            }else{
-                onError("ELSE IS WORKING")
+            case .failure(let error):
+                onError(error.localizedDescription)
             }
-        } onError: { error in
-            onError("onERROR WORKING")
         }
-
     }
     
 }

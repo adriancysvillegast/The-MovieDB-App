@@ -20,22 +20,21 @@ class TopRateTVService: TopRateTVServiceFetching {
     // MARK: - get service
     
     func get(onComplete: @escaping ([TopRateTVShowResponse]) -> (), onError: @escaping (String) -> ()) {
-        APIManager.shared.get(url: "\(baseURL)\(endPointTVShowTopRate)api_key=\(apiKey)") { data in
-            guard let safeData = data else { return }
-            do{
-                let decoder = JSONDecoder()
-                decoder.keyDecodingStrategy = .convertFromSnakeCase
-                let info = try decoder.decode(TopRateTVShowsResponse.self, from: safeData)
-                onComplete(info.results)
-            }catch{
-                
+        APIManager.shared.get(url: "\(baseURL)\(endPointTVShowTopRate)api_key=\(apiKey)") { response in
+            switch response {
+            case .success(let data):
+                guard let safeData = data else { return }
+                do{
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let info = try decoder.decode(TopRateTVShowsResponse.self, from: safeData)
+                    onComplete(info.results)
+                }catch{
+                    onError(error.localizedDescription)
+                }
+            case .failure(let error):
+                onError(error.localizedDescription)
             }
-        } onError: { error in
-            guard let e = error else { return }
-            onError(e.localizedDescription)
         }
-
     }
-    
-    
 }
