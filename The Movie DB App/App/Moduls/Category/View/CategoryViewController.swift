@@ -80,7 +80,7 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
 extension CategoryViewController: ShowErrorDelegate {
     func showError(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let acction = UIAlertAction(title: "Try agrain!", style: .default) { _ in
+        let acction = UIAlertAction(title: "Try again!", style: .default) { _ in
             self.viewModel.getCategories()
         }
         alert.addAction(acction)

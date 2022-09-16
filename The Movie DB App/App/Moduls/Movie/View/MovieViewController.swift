@@ -151,10 +151,7 @@ class MovieViewController: UIViewController {
             spinner.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             spinner.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
         ])
-    }
-    
-// MARK: - add targets
-    
+    }  
     
 }
 //MARK: - UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
@@ -227,6 +224,8 @@ extension MovieViewController: ShowErrorDelegate {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let acction = UIAlertAction(title: "Try agrain!", style: .default) { _ in
             self.viewModel.getTopRateMovies()
+            self.viewModel.getLastMovie()
+            self.viewModel.getPopularMovie()
         }
         alert.addAction(acction)
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel))

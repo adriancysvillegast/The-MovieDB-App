@@ -242,6 +242,12 @@ extension TVViewController: SpinnerLoadDelegate {
 extension TVViewController: ShowErrorDelegate {
     func showError(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Try Again", style: .default) { _ in
+            self.viewModel.getPopularTVShows()
+            self.viewModel.getTopRateTVShows()
+            self.viewModel.getLastTVShow()
+        }
+        alert.addAction(action)
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
         present(alert, animated: true)
     }
