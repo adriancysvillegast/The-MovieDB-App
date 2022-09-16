@@ -70,8 +70,10 @@ class TVDetailViewModel {
     private func getCompanies(show: TVShowsDetailResponse) -> [String] {
         var image: [String] = []
         for show in show.productionCompanies {
-            let url = "\(baseImage)\(show.logoPath)"
-            image.append(url)
+            if let path = show.logoPath {
+                let url = "\(baseImage)\(path)"
+                image.append(url)
+            }
         }
         return image
     }

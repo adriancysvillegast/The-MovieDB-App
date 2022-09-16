@@ -372,7 +372,7 @@ extension TVDetailViewController: UICollectionViewDelegate, UICollectionViewData
     
 }
 
-
+// MARK: - ShowErrorDelegate
 extension TVDetailViewController: ShowErrorDelegate {
     func showError(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
