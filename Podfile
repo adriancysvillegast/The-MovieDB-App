@@ -8,4 +8,5 @@ target 'The Movie DB App' do
   # Pods for The Movie DB App
 
 pod 'FirebaseAuth'
+pod 'Alamofire'
 end
